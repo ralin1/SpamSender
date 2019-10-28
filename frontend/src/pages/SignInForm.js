@@ -42,7 +42,8 @@ class SignInForm extends Component {
 
               <div className="FormField">
                 <label className="FormField__Label" htmlFor="password">Hasło</label>
-                <input type="password" id="password" className="FormField__Input" placeholder="Wpisz swóje hasło" name="password" value={this.state.password} onChange={this.handleChange} />
+                  <input type="password" id="password" className="FormField__Input" placeholder="Wpisz swoje hasło"
+                         name="password" value={this.state.password} onChange={this.handleChange}/>
               </div>
 
               <div className="FormField">
@@ -50,7 +51,7 @@ class SignInForm extends Component {
                   <Link to="/" className="FormField__Link">Rejestracja</Link>
 
               </div>
-                <Link to="/RememberPasswordForm" className="FormField__Link">Zapomniałesz hasło?</Link>
+                <Link to="/RememberPasswordForm" className="FormField__Link">Zapomniałeś hasła?</Link>
             </form>
           </div>
         );
