@@ -1,5 +1,10 @@
 from django.shortcuts import render
 import pyrebase
+import json
+import json.decoder
+from django.http import HttpRequest
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 firebase = {
     'apiKey': "AIzaSyAiSYKW1D6KquwC_0LP55C_YhNR9cirin4",
@@ -10,19 +15,39 @@ firebase = {
     'messagingSenderId': "985000868953",
     'appId': "1:985000868953:web:2d35f601632ea6f22a8548",
     'measurementId': "G-KB6BBEKHVF"
-  }
+}
 
 firebase = pyrebase.initialize_app(firebase)
 
 auth = firebase.auth()
 
-def signIn(request):
 
+def signIn(request):
     return render(request, "signIn.html")
 
-def postsign(request):
 
+def postsign(request):
     email = request.POST.get('email')
     password = request.POST.get("pass")
     user = auth.sign_in_with_email_and_password(email, password)
     return render(request, "welcome.html", {"msg": email})
+
+
+@csrf_exempt
+def main_page(request):
+    if request.method == 'POST':
+        print(request.body)
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        email = body['email']
+        password = body['password']
+        print(email)
+        print(password)
+        try:
+            auth.sign_in_with_email_and_password(email, password)
+            print("Done")
+            return HttpResponse("Ok")
+        except:
+            print("Invalid data")
+            return HttpResponse("Bad data")
+    return HttpResponse("Bad data")

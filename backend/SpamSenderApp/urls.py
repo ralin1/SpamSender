@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 from . import views
+
 urlpatterns = [
-url(r'^admin/', admin.site.urls),
-url(r'^$',views.signIn),
-url(r'^postsign/',views.postsign),
+    url(r'^admin/', admin.site.urls),
+    url(r'^$', views.signIn),
+    url(r'^postsign/', views.postsign),
+    url('main_page', views.main_page)
 ]

@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+
+const url = 'http://127.0.0.1:8000/main_page/'
 
 class SignInForm extends Component {
     constructor() {
@@ -20,39 +22,48 @@ class SignInForm extends Component {
         let name = target.name;
 
         this.setState({
-          [name]: value
+            [name]: value
         });
     }
 
     handleSubmit(e) {
+        console.log("Email: " + this.state.email);
+        console.log("Password: " + this.state.password);
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(this.state),
+            headers: {
+                Accept: 'application/json'
+            }
+        }).then(r => r.json());
         e.preventDefault();
-
-        console.log('The form was submitted with the following data:');
-        console.log(this.state);
     }
 
     render() {
         return (
-        <div className="FormCenter">
-            <form className="FormFields" onSubmit={this.handleSubmit}>
-            <div className="FormField">
-                <label className="FormField__Label" htmlFor="email">Poczta</label>
-                <input type="email" id="email" className="FormField__Input" placeholder="Wpisz swój email" name="email" value={this.state.email} onChange={this.handleChange} />
-              </div>
+            <div className="FormCenter">
+                <form className="FormFields" onSubmit={this.handleSubmit}>
+                    <div className="FormField">
+                        <label className="FormField__Label" htmlFor="email">Poczta</label>
+                        <input type="email" id="email" className="FormField__Input" placeholder="Wpisz swój email"
+                               name="email" value={this.state.email} onChange={this.handleChange}/>
+                    </div>
 
-              <div className="FormField">
-                <label className="FormField__Label" htmlFor="password">Hasło</label>
-                <input type="password" id="password" className="FormField__Input" placeholder="Wpisz swóje hasło" name="password" value={this.state.password} onChange={this.handleChange} />
-              </div>
+                    <div className="FormField">
+                        <label className="FormField__Label" htmlFor="password">Hasło</label>
+                        <input type="password" id="password" className="FormField__Input"
+                               placeholder="Wpisz swóje hasło" name="password" value={this.state.password}
+                               onChange={this.handleChange}/>
+                    </div>
 
-              <div className="FormField">
-                  <button className="FormField__Button mr-20">Logowanie</button>
-                  <Link to="/" className="FormField__Link">Rejestracja</Link>
+                    <div className="FormField">
+                        <button className="FormField__Button mr-20">Logowanie</button>
+                        <Link to="/" className="FormField__Link">Rejestracja</Link>
 
-              </div>
-                <Link to="/RememberPasswordForm" className="FormField__Link">Zapomniałesz hasło?</Link>
-            </form>
-          </div>
+                    </div>
+                    <Link to="/RememberPasswordForm" className="FormField__Link">Zapomniałesz hasło?</Link>
+                </form>
+            </div>
         );
     }
 }
