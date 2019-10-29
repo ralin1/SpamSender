@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-const url = 'http://127.0.0.1:8000/main_page/'
+const url = 'http://127.0.0.1:8000/login/';
 
 class SignInForm extends Component {
     constructor() {
@@ -27,8 +27,6 @@ class SignInForm extends Component {
     }
 
     handleSubmit(e) {
-        console.log("Email: " + this.state.email);
-        console.log("Password: " + this.state.password);
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(this.state),

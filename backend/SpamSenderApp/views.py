@@ -34,7 +34,7 @@ def postsign(request):
 
 
 @csrf_exempt
-def main_page(request):
+def login(request):
     if request.method == 'POST':
         print(request.body)
         body_unicode = request.body.decode('utf-8')
@@ -45,6 +45,50 @@ def main_page(request):
         print(password)
         try:
             auth.sign_in_with_email_and_password(email, password)
+            print("Done")
+            return HttpResponse("Ok")
+        except:
+            print("Invalid data")
+            return HttpResponse("Bad data")
+    return HttpResponse("Bad data")
+
+
+@csrf_exempt
+def signup(request):
+    if request.method == 'POST':
+        print(request.body)
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        email = body['email']
+        password = body['password']
+        repassword = body['repassword']
+        print(email)
+        print(password)
+        print(repassword)
+        if password == repassword:
+            try:
+                auth.create_user_with_email_and_password(email, password)
+                print("Done")
+                return HttpResponse("Ok")
+            except:
+                print("Invalid data")
+                return HttpResponse("Bad data")
+        else:
+            print("Password must be same as repassword")
+            return HttpResponse("Bad data")
+    return HttpResponse("Bad data")
+
+
+@csrf_exempt
+def reset(request):
+    if request.method == 'POST':
+        print(request.body)
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        email = body['email']
+        print(email)
+        try:
+            auth.send_password_reset_email(email)
             print("Done")
             return HttpResponse("Ok")
         except:

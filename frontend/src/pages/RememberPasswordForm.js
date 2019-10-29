@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+const url = 'http://127.0.0.1:8000/reset/';
 
 class SignUpForm extends Component {
     constructor() {
@@ -25,10 +26,14 @@ class SignUpForm extends Component {
     }
 
     handleSubmit(e) {
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(this.state),
+            headers: {
+                Accept: 'application/json'
+            }
+        }).then(r => r.json());
         e.preventDefault();
-
-        console.log('The form was submitted with the following data:');
-        console.log(this.state);
     }
 
     render() {

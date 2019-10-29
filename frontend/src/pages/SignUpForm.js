@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+const url = 'http://127.0.0.1:8000/signup/';
+
 class SignUpForm extends Component {
     constructor() {
         super();
@@ -26,10 +28,14 @@ class SignUpForm extends Component {
     }
 
     handleSubmit(e) {
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(this.state),
+            headers: {
+                Accept: 'application/json'
+            }
+        }).then(r => r.json());
         e.preventDefault();
-
-        console.log('The form was submitted with the following data:');
-        console.log(this.state);
     }
 
     render() {
@@ -51,7 +57,8 @@ class SignUpForm extends Component {
 
 
               <div className="FormField">
-                  <button className="FormField__Button mr-20">Rejestracja</button> <Link to="/sign-in" className="FormField__Link">Zarejestołany</Link>
+                  <button className="FormField__Button mr-20">Rejestracja</button>
+                  <Link to="/sign-in" className="FormField__Link">Zarejestrowany?</Link>
               </div>
             </form>
           </div>
