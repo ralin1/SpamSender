@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, NavLink, Redirect} from 'react-router-dom';
+import Logo from "../logo1.png";
 
 const url = 'http://127.0.0.1:8000/login/';
 
@@ -9,7 +10,8 @@ class SignInForm extends Component {
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            redirect: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -26,6 +28,22 @@ class SignInForm extends Component {
         });
     }
 
+    setRedirect = () => {
+        this.setState({
+            redirect: true
+        })
+    }
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/MainScreen.js'/>
+        }
+    }
+
+    handleClick() {
+        //e.preventDefault();
+        alert('The link was clicked.');
+    };
+
     handleSubmit(e) {
         fetch(url, {
             method: 'POST',
@@ -39,28 +57,50 @@ class SignInForm extends Component {
 
     render() {
         return (
-            <div className="FormCenter">
-                <form className="FormFields" onSubmit={this.handleSubmit}>
-                    <div className="FormField">
-                        <label className="FormField__Label" htmlFor="email">Poczta</label>
-                        <input type="email" id="email" className="FormField__Input" placeholder="Wpisz swój email"
-                               name="email" value={this.state.email} onChange={this.handleChange}/>
+            <div className="App">
+                <div className="App__Aside">
+                    <img src={Logo} alt="logo" className="center"/>
+                </div>
+                <div className="App__Form">
+                    <div className="PageSwitcher">
+                        <NavLink to="/sign-in" activeClassName="PageSwitcher__Item--Active"
+                                 className="PageSwitcher__Item">Logowanie</NavLink>
+                        <NavLink exact to="/" activeClassName="PageSwitcher__Item--Active"
+                                 className="PageSwitcher__Item">Rejestracja</NavLink>
                     </div>
-
-                    <div className="FormField">
-                        <label className="FormField__Label" htmlFor="password">Hasło</label>
-                        <input type="password" id="password" className="FormField__Input"
-                               placeholder="Wpisz swóje hasło" name="password" value={this.state.password}
-                               onChange={this.handleChange}/>
+                    <div className="FormTitle">
+                        <NavLink to="/sign-in" activeClassName="FormTitle__Link--Active"
+                                 className="FormTitle__Link">Logowanie</NavLink> lub
+                        <NavLink exact to="/" activeClassName="FormTitle__Link--Active"
+                                 className="FormTitle__Link">Rejestracja</NavLink>
                     </div>
+                    <div className="FormCenter">
+                        <form className="FormFields" onSubmit={this.handleSubmit}>
+                            <div className="FormField">
+                                <label className="FormField__Label" htmlFor="email">Poczta</label>
+                                <input type="email" id="email" className="FormField__Input"
+                                       placeholder="Wpisz swój email"
+                                       name="email" value={this.state.email} onChange={this.handleChange}/>
+                            </div>
 
-                    <div className="FormField">
-                        <button className="FormField__Button mr-20">Logowanie</button>
-                        <Link to="/" className="FormField__Link">Rejestracja</Link>
+                            <div className="FormField">
+                                <label className="FormField__Label" htmlFor="password">Hasło</label>
+                                <input type="password" id="password" className="FormField__Input"
+                                       placeholder="Wpisz swóje hasło" name="password" value={this.state.password}
+                                       onChange={this.handleChange}/>
+                            </div>
 
+                            <div className="FormField">
+                                {this.renderRedirect()}
+                                <button href="MainScreen.js" onClick={this.setRedirect}
+                                        className="FormField__Button mr-20">Logowanie
+                                </button>
+                                <Link to="/" className="FormField__Link">Rejestracja</Link>
+                            </div>
+                            <Link to="/RememberPasswordForm" className="FormField__Link">Zapomniałesz hasło?</Link>
+                        </form>
                     </div>
-                    <Link to="/RememberPasswordForm" className="FormField__Link">Zapomniałesz hasło?</Link>
-                </form>
+                </div>
             </div>
         );
     }
