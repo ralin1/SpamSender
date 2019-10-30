@@ -39,10 +39,6 @@ class SignInForm extends Component {
         }
     }
 
-    handleClick() {
-        //e.preventDefault();
-        alert('The link was clicked.');
-    };
 
     handleSubmit(e) {
         fetch(url, {
@@ -52,6 +48,7 @@ class SignInForm extends Component {
                 Accept: 'application/json'
             }
         }).then(r => r.json());
+        this.renderRedirect();
         e.preventDefault();
     }
 
@@ -92,7 +89,7 @@ class SignInForm extends Component {
 
                             <div className="FormField">
                                 {this.renderRedirect()}
-                                <button href="MainScreen.js" onClick={this.setRedirect}
+                                <button
                                         className="FormField__Button mr-20">Logowanie
                                 </button>
                                 <Link to="/" className="FormField__Link">Rejestracja</Link>
