@@ -37,8 +37,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_node_assets',
     'SpamSender.apps.SpamsenderConfig',
 ]
+
+#
+STATICFILES_FINDERS = [
+    'django_node_assets.finders.NodeModulesFinder',
+]
+
+NODE_PACKAGE_JSON = '/var/assets/package.json'
+
+NODE_MODULES_ROOT = '/var/assets/node_modules'
+
+NODE_PACKAGE_MANAGER_EXECUTABLE = '/usr/local/bin/npm'
+#
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

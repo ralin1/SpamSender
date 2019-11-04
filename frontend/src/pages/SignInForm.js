@@ -32,23 +32,28 @@ class SignInForm extends Component {
         this.setState({
             redirect: true
         })
-    }
+    };
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <Redirect to='/MainScreen.js'/>
+            return <Redirect to='/MainScreen'/>
         }
-    }
+    };
 
 
     handleSubmit(e) {
+        console.log("Hello!");
+
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(this.state),
             headers: {
                 Accept: 'application/json'
             }
-        }).then(r => r.json());
-        this.renderRedirect();
+        }).then(r => r.json()).then(json => this.setState({
+            email: json.results.email, password: json.results.password
+        }));
+        this.setRedirect();
+        // this.renderRedirect();
         e.preventDefault();
     }
 
@@ -90,11 +95,11 @@ class SignInForm extends Component {
                             <div className="FormField">
                                 {this.renderRedirect()}
                                 <button
-                                        className="FormField__Button mr-20">Logowanie
+                                    className="FormField__Button mr-20">Logowanie
                                 </button>
                                 <Link to="/" className="FormField__Link">Rejestracja</Link>
                             </div>
-                            <Link to="/RememberPasswordForm" className="FormField__Link">Zapomniałesz hasło?</Link>
+                            <Link to="/RememberPasswordForm" className="FormField__Link">Zapomniałeś hasła?</Link>
                         </form>
                     </div>
                 </div>
