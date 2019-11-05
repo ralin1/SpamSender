@@ -32,26 +32,30 @@ class SignInForm extends Component {
         this.setState({
             redirect: true
         })
-    }
+    };
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <Redirect to='/MainScreen.js'/>
+            return <Redirect to='/main'/>
         }
-    }
-
-    handleClick() {
-        //e.preventDefault();
-        alert('The link was clicked.');
     };
+
 
     handleSubmit(e) {
         fetch(url, {
             method: 'POST',
+            mode: 'cors',
             body: JSON.stringify(this.state),
             headers: {
                 Accept: 'application/json'
             }
-        }).then(r => r.json());
+        }).then(function (response) {
+            console.log(response.status);
+            if (response.status === 200) {
+                console.log("Redirect");
+                // return <NavLink to='/main'/>;
+            }
+        });
+        this.setRedirect();
         e.preventDefault();
     }
 
@@ -92,9 +96,7 @@ class SignInForm extends Component {
 
                             <div className="FormField">
                                 {this.renderRedirect()}
-                                <button href="MainScreen.js" onClick={this.setRedirect}
-                                        className="FormField__Button mr-20">Logowanie
-                                </button>
+                                <button className="FormField__Button mr-20">Logowanie</button>
                                 <Link to="/" className="FormField__Link">Rejestracja</Link>
                             </div>
                             <Link to="/RememberPasswordForm" className="FormField__Link">Zapomniałesz hasło?</Link>

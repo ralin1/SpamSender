@@ -4,6 +4,7 @@ import json
 import json.decoder
 from django.http import HttpRequest
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 firebase = {
@@ -21,18 +22,6 @@ firebase = pyrebase.initialize_app(firebase)
 
 auth = firebase.auth()
 
-
-def signIn(request):
-    return render(request, "signIn.html")
-
-
-def postsign(request):
-    email = request.POST.get('email')
-    password = request.POST.get("pass")
-    user = auth.sign_in_with_email_and_password(email, password)
-    return render(request, "welcome.html", {"msg": email})
-
-
 @csrf_exempt
 def login(request):
     if request.method == 'POST':
@@ -46,10 +35,10 @@ def login(request):
         try:
             auth.sign_in_with_email_and_password(email, password)
             print("Done")
-            return HttpResponse("Ok")
+            return HttpResponse(status=200)
         except:
             print("Invalid data")
-            return HttpResponse("Bad data")
+            return HttpResponse(status=204)
     return HttpResponse("Bad data")
 
 
@@ -69,7 +58,12 @@ def signup(request):
             try:
                 auth.create_user_with_email_and_password(email, password)
                 print("Done")
-                return HttpResponse("Ok")
+                response = JsonResponse("Ok", safe=False)
+                response["Access-Control-Allow-Origin"] = "*"
+                response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+                response["Access-Control-Max-Age"] = "1000"
+                response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
+                return response
             except:
                 print("Invalid data")
                 return HttpResponse("Bad data")
@@ -90,7 +84,7 @@ def reset(request):
         try:
             auth.send_password_reset_email(email)
             print("Done")
-            return HttpResponse("Ok")
+            return JsonResponse("Ok")
         except:
             print("Invalid data")
             return HttpResponse("Bad data")
