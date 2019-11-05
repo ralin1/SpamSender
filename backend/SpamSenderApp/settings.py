@@ -56,7 +56,6 @@ NODE_PACKAGE_MANAGER_EXECUTABLE = '/usr/local/bin/npm'
 #
 
 CORS_ORIGIN_ALLOW_ALL = True
-ALLOWED_HOSTS = ['*']
 
 MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
