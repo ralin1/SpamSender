@@ -42,7 +42,6 @@ class SignInForm extends Component {
 
     handleSubmit(e) {
         console.log("Hello!");
-
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(this.state),
@@ -52,8 +51,9 @@ class SignInForm extends Component {
         }).then(r => r.json()).then(json => this.setState({
             email: json.results.email, password: json.results.password
         }));
+
         this.setRedirect();
-        // this.renderRedirect();
+        this.renderRedirect();
         e.preventDefault();
     }
 
@@ -93,7 +93,7 @@ class SignInForm extends Component {
                             </div>
 
                             <div className="FormField">
-                                {this.renderRedirect()}
+
                                 <button
                                     className="FormField__Button mr-20">Logowanie
                                 </button>

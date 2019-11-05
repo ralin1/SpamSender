@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_node_assets',
     'SpamSender.apps.SpamsenderConfig',
+
+    'corsheaders',
+    'SpamSenderApp',
 ]
 
 #
@@ -53,7 +56,12 @@ NODE_MODULES_ROOT = '/var/assets/node_modules'
 NODE_PACKAGE_MANAGER_EXECUTABLE = '/usr/local/bin/npm'
 #
 
+CORS_ORIGIN_ALLOW_ALL = True
+ALLOWED_HOSTS = ['*']
+
 MIDDLEWARE = [
+    'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -62,6 +70,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_WHITELIST = (
+    'http://127.0.0.1:3000',
+)
 
 ROOT_URLCONF = 'SpamSenderApp.urls'
 
