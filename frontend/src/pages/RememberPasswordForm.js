@@ -59,8 +59,8 @@ class SignUpForm extends Component {
                     <div className="FormCenter">
                         <form onSubmit={this.handleSubmit} className="FormFields">
                             <div className="FormField">
-                                <label className="FormField_" htmlFor="email">Jeśli zapomniałeś hasło, wpisz
-                                    adres:</label>
+                                <label className="FormField_" htmlFor="email">Jeśli zapomniałeś hasła, wpisz
+                                    adres mail:</label>
                                 <input type="text" id="email" className="FormField__Input" name="email"
                                        value={this.state.email} onChange={this.handleChange}/>
                             </div>
