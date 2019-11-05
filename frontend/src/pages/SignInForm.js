@@ -41,6 +41,7 @@ class SignInForm extends Component {
 
 
     handleSubmit(e) {
+        console.log("Hello!");
         fetch(url, {
             method: 'POST',
             mode: 'cors',
@@ -52,8 +53,10 @@ class SignInForm extends Component {
             console.log(response.status);
             if (response.status === 200) {
                 console.log("Redirect");
+                alert("Zalogowany");
                 // return <NavLink to='/main'/>;
             }
+            else alert("Błąd logowania");
         });
         this.setRedirect();
         e.preventDefault();
@@ -99,7 +102,7 @@ class SignInForm extends Component {
                                 <button className="FormField__Button mr-20">Logowanie</button>
                                 <Link to="/" className="FormField__Link">Rejestracja</Link>
                             </div>
-                            <Link to="/RememberPasswordForm" className="FormField__Link">Zapomniałesz hasło?</Link>
+                            <Link to="/RememberPasswordForm" className="FormField__Link">Zapomniałeś hasła?</Link>
                         </form>
                     </div>
                 </div>
