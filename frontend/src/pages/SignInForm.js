@@ -48,13 +48,17 @@ class SignInForm extends Component {
             headers: {
                 Accept: 'application/json'
             }
-        }).then(r => r.json()).then(json => this.setState({
-            email: json.results.email, password: json.results.password
-        }));
+        })
+            .then(r => console.log(r));
+        // .then(r => r.json()).then(json => this.setState({
+        // email: json.results.email, password: json.results.password
+        // })).then(a=>{console.log(a);});
 
         this.setRedirect();
         this.renderRedirect();
         e.preventDefault();
+
+        console.log(this.state.status)
     }
 
     render() {
