@@ -99,7 +99,7 @@ class SignInForm extends Component {
                             <div className="FormField">
                                 {this.renderRedirect()}
                                 <button className="FormField__Button mr-20">Logowanie</button>
-                                <Link to="/" className="FormField__Link">Rejestracja</Link>
+                                {/*<Link to="/" className="FormField__Link">Rejestracja</Link>*/}
                             </div>
                             <Link to="/RememberPasswordForm" className="FormField__Link">Zapomniałeś hasła?</Link>
                         </form>
