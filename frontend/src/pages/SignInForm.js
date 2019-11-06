@@ -96,7 +96,7 @@ class SignInForm extends Component {
                             <div className="FormField">
                                 <label className="FormField__Label" htmlFor="password">Hasło</label>
                                 <input type="password" id="password" className="FormField__Input"
-                                       placeholder="Wpisz swóje hasło" name="password" value={this.state.password}
+                                       placeholder="Wpisz swoje hasło" name="password" value={this.state.password}
                                        onChange={this.handleChange}/>
                             </div>
 
