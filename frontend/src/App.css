@@ -8,9 +8,13 @@
   width: 50%;
   background-color: #7fa684;
 }
+.App__Aside_main {
+  width: 20%;
+  background-color: #7fa684;
+}
 
 .App__Form {
-  width: 50%;
+  width: 80%;
   background-color: #2E4158;
   padding: 25px 40px;
   overflow: auto;
