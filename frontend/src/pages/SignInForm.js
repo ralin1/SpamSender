@@ -41,7 +41,6 @@ class SignInForm extends Component {
 
 
     handleSubmit(e) {
-        console.log("Hello!");
         fetch(url, {
             method: 'POST',
             mode: 'cors',
