@@ -54,7 +54,6 @@ class SignInForm extends Component {
             console.log(response.status);
             if (response.status === 200) {
                 console.log("Redirect");
-                alert("Zalogowany");
                 a.setRedirect();
                 // return <NavLink to='/main'/>;
             } else alert("Błąd logowania");

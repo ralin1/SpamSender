@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import {Link, NavLink, Redirect} from 'react-router-dom';
 import Logo from "../logo1.png";
 
 const url = 'http://127.0.0.1:8000/signup/';
@@ -11,7 +11,8 @@ class SignUpForm extends Component {
         this.state = {
             email: '',
             password: '',
-            repassword: ''
+            repassword: '',
+            redirect: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -34,14 +35,36 @@ class SignUpForm extends Component {
         });
     }
 
+    setRedirect = () => {
+        this.setState({
+            redirect: true
+        })
+    };
+
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/sign-in'/>
+        }
+    };
+
     handleSubmit(e) {
+        var a = this;
         fetch(url, {
             method: 'POST',
+            mode: 'cors',
             body: JSON.stringify(this.state),
             headers: {
                 Accept: 'application/json'
             }
-        }).then(r => r.json());
+        }).then(function (response) {
+            console.log(response.status);
+            if (response.status === 200) {
+                console.log("Redirect");
+                alert("Konto zostało utworzone. Teraz możesz się zalogować.");
+                a.setRedirect();
+                // return <NavLink to='/main'/>;
+            } else alert("Błąd rejestracji");
+        });
         e.preventDefault();
     }
 
@@ -82,6 +105,7 @@ class SignUpForm extends Component {
                                        value={this.state.repassword} onChange={this.handleChange}/>
                             </div>
                             <div className="FormField">
+                                {this.renderRedirect()}
                                 <button className="FormField__Button mr-20">Rejestracja</button>
                                 {/*<Link to="/sign-in" className="FormField__Link">Zarejestrowany?</Link>*/}
                             </div>
