@@ -63,3 +63,6 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# security credentials
+backend/SpamSenderApp/twitter_credentials.json

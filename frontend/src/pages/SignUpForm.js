@@ -92,17 +92,20 @@ class SignUpForm extends Component {
                             <div className="FormField">
                                 <label className="FormField__Label" htmlFor="email">Poczta</label>
                                 <input type="text" id="email" className="FormField__Input" name="email"
-                                       value={this.state.email} onChange={this.handleChange}/>
+                                       value={this.state.email} onChange={this.handleChange}
+                                       placeholder="Wpisz swój email"/>
                             </div>
                             <div className="FormField">
                                 <label className="FormField__Label" htmlFor="password">Hasło</label>
                                 <input type="password" id="password" className="FormField__Input" name="password"
-                                       value={this.state.password} onChange={this.handleChange}/>
+                                       value={this.state.password} onChange={this.handleChange}
+                                       placeholder="Wpisz swoje hasło"/>
                             </div>
                             <div className="FormField">
                                 <label className="FormField__Label" htmlFor="email">Powtórz hasło</label>
                                 <input type="password" id="repassword" className="FormField__Input" name="repassword"
-                                       value={this.state.repassword} onChange={this.handleChange}/>
+                                       value={this.state.repassword} onChange={this.handleChange}
+                                       placeholder="Powtórz hasło"/>
                             </div>
                             <div className="FormField">
                                 {this.renderRedirect()}

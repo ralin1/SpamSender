@@ -14,9 +14,9 @@ class MainScreen extends Component{
                     <nav className="no-space navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper"
                          role="navigation">
                         <ul className="nav sidebar-nav">
-                            <li className="sidebar-brand">
+                            <li>
                                 <a href="#">
-                                    SpamSender
+                                    <img src={Logo} className="center"/>
                                 </a>
                             </li>
                             <li>

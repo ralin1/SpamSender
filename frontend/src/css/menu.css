@@ -32,7 +32,7 @@ html { height: 100%;}
     /*margin-left: -220px;*/
     overflow-y: auto;
     overflow-x: hidden;
-    background: #1a1a1a;
+    background: dodgerblue;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -74,7 +74,7 @@ html { height: 100%;}
     top: 0;
     bottom: 0;
     width: 100%;
-    margin: 0px;
+    margin: 0;
     padding: 0;
     list-style: none;
 }
@@ -94,7 +94,6 @@ html { height: 100%;}
     z-index: -1;
     height: 100%;
     width: 3px;
-    background-color: #1c1c1c;
     -webkit-transition: width .2s ease-in;
       -moz-transition:  width .2s ease-in;
        -ms-transition:  width .2s ease-in;
@@ -102,8 +101,9 @@ html { height: 100%;}
 
 }
 .sidebar-nav li:first-child a {
-    color: #fff;
-    background-color: #1a1a1a;
+    padding: 0;
+    width: 100%;
+
 }
 .sidebar-nav li:nth-child(2):before {
     background-color: #ec1b5a;
@@ -141,7 +141,7 @@ html { height: 100%;}
 
 .sidebar-nav li a {
     display: block;
-    color: #ddd;
+    color: white;
     text-decoration: none;
     padding: 16px;
     height: 100%;
@@ -158,11 +158,11 @@ html { height: 100%;}
     background-color: transparent;
 }
 
-.sidebar-nav > .sidebar-brand {
-    height: 65px;
-    font-size: 20px;
-    line-height: 44px;
-}
+/*.sidebar-nav > .sidebar-brand {*/
+/*    height: 100%;*/
+/*    font-size: 20px;*/
+/*    line-height: 44px;*/
+/*}*/
 .sidebar-nav .dropdown-menu {
     position: relative;
     width: 100%;
