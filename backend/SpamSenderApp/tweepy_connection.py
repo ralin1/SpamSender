@@ -1,10 +1,6 @@
-import csv
 import json
-import keyword
 
-import pandas as pd
 import tweepy
-import pandas
 
 
 def load_configuration():
@@ -13,7 +9,7 @@ def load_configuration():
     return credentials
 
 
-def hello_tweepy():
+def get_api():
     credentials = load_configuration()
 
     auth = tweepy.OAuthHandler(credentials['CONSUMER_KEY'], credentials['CONSUMER_SECRET'])
@@ -27,9 +23,10 @@ def hello_tweepy():
     return api
 
 
-# Get the User object for twitter.py...
-def user_object(api):
+# Get the User object for tweepy_connection.py...
+def get_user(api):
     user = api.get_user('LBalcerowicz')
+    print_data(user)
     return user
 
 
@@ -56,29 +53,35 @@ class MyStreamListener(tweepy.StreamListener):
 def listener(api):
     my_steam_listener = MyStreamListener()
     myStream = tweepy.Stream(auth=api.auth, listener=my_steam_listener)
+    # sync listen tag
     # myStream.filter(track=['Epic'])
+    # sync listen user feed
     # myStream.filter(follow=["LBalcerowicz"])
+    # async listen tag
     myStream.filter(track=['bitcoin'], is_async=True)
 
 
+def printer(data_in):
+    for a in data_in:
+        # To get full text
+        # print(api.get_status(a.id, tweet_mode='extended')._json['full_text'])
+        # To get original user ID
+        print(api.get_status(a.id, tweet_mode='extended')._json['user']['id'])
+        # print full data
+        print(a)
+
+
+def search_word(api, text, type):
+    search_results = api.search(q=text, tweet_mode='extended', count=1000)
+    printer(search_results)
+    return search_results
+
+
 if __name__ == "__main__":
-    api = hello_tweepy()
+    api = get_api()
+
     # user = user_object(api)
-    # print_data(user)
 
     # listener(api)
 
-    # public_tweets = api.trends_available()
-    # for a in public_tweets:
-    #     print(a['name'])
-
-    search_results = api.search(q="hello", tweet_mode='extended', count=1000)
-    for a in search_results:
-        print(api.get_status(a.id, tweet_mode='extended')._json['full_text'])
-
-    # with open('some.csv', 'w') as acsv:
-    #     w = csv.writer(acsv)
-    #     w.writerow(('Keyword', 'Tweet'))
-    #     for tweet in search_results:
-    #         lat, lon = tweet.geo if tweet.geo else ('', '')
-    #         w.writerow((keyword, tweet.text, lat, lon))
+    # search_word(api, "himen")
