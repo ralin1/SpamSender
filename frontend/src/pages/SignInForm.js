@@ -14,6 +14,7 @@ class SignInForm extends Component {
             redirect: false
         };
 
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -41,7 +42,7 @@ class SignInForm extends Component {
 
 
     handleSubmit(e) {
-        var isGood = false
+        var a = this;
         fetch(url, {
             method: 'POST',
             mode: 'cors',
@@ -53,15 +54,10 @@ class SignInForm extends Component {
             console.log(response.status);
             if (response.status === 200) {
                 console.log("Redirect");
-                isGood = true;
-                alert("Zalogowany");
-
+                a.setRedirect();
                 // return <NavLink to='/main'/>;
             } else alert("Błąd logowania");
         });
-        if (!isGood) {
-            this.renderRedirect();
-        }
         e.preventDefault();
     }
 

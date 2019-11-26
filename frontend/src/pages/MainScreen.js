@@ -11,43 +11,45 @@ class MainScreen extends Component{
     render() {
         return <div id="wrapper" className="App">
                 <div className="App__Aside_main">
-                    <nav className="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+                    <nav className="no-space navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper"
+                         role="navigation">
                         <ul className="nav sidebar-nav">
-                            <li className="sidebar-brand">
+                            <li>
                                 <a href="#">
-                                    Brand
+                                    <img src={Logo} className="center"/>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">Home</a>
+                                <a href="#">Redaguj wiadomość</a>
                             </li>
                             <li>
-                                <a href="#">About</a>
+                                <a href="#">Zarządzaj szablonami</a>
                             </li>
                             <li>
-                                <a href="#">Events</a>
+                                <a href="#">Szukaj odbiorców</a>
                             </li>
                             <li>
-                                <a href="#">Team</a>
-                            </li>
-                            <li className="dropdown">
-                                <a href="#" className="dropdown-toggle" data-toggle="dropdown">Works <span
-                                    className="caret"></span></a>
-                                <ul className="dropdown-menu" role="menu">
-                                    <li className="dropdown-header">Dropdown heading</li>
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li><a href="#">One more separated link</a></li>
-                                </ul>
+                                <a href="#">Odebrane</a>
                             </li>
                             <li>
-                                <a href="#">Services</a>
+                                <a href="#">Moze cos jeszcze???</a>
                             </li>
                             <li>
-                                <a href="#">Contact</a>
+                                <a href="#">Wyloguj</a>
                             </li>
+
+                            {/*<li className="dropdown">*/}
+                            {/*    <a href="#" className="dropdown-toggle" data-toggle="dropdown">Works <span*/}
+                            {/*        className="caret"></span></a>*/}
+                            {/*    <ul className="dropdown-menu" role="menu">*/}
+                            {/*        <li className="dropdown-header">Dropdown heading</li>*/}
+                            {/*        <li><a href="#">Action</a></li>*/}
+                            {/*        <li><a href="#">Another action</a></li>*/}
+                            {/*        <li><a href="#">Something else here</a></li>*/}
+                            {/*        <li><a href="#">Separated link</a></li>*/}
+                            {/*        <li><a href="#">One more separated link</a></li>*/}
+                            {/*    </ul>*/}
+                            {/*</li>*/}
 
                         </ul>
                     </nav>

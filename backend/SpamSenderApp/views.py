@@ -39,7 +39,7 @@ def login(request):
         except:
             print("Invalid data")
             return HttpResponse(status=204)
-    return HttpResponse("Bad data")
+    return HttpResponse(status=204)
 
 
 @csrf_exempt
@@ -58,19 +58,14 @@ def signup(request):
             try:
                 auth.create_user_with_email_and_password(email, password)
                 print("Done")
-                response = JsonResponse("Ok", safe=False)
-                response["Access-Control-Allow-Origin"] = "*"
-                response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
-                response["Access-Control-Max-Age"] = "1000"
-                response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
-                return response
+                return HttpResponse(status=200)
             except:
                 print("Invalid data")
-                return HttpResponse("Bad data")
+            return HttpResponse(status=204)
         else:
             print("Password must be same as repassword")
-            return HttpResponse("Bad data")
-    return HttpResponse("Bad data")
+
+            return HttpResponse(status=204)
 
 
 @csrf_exempt
@@ -84,8 +79,7 @@ def reset(request):
         try:
             auth.send_password_reset_email(email)
             print("Done")
-            return JsonResponse("Ok")
+            return HttpResponse(status=200)
         except:
             print("Invalid data")
-            return HttpResponse("Bad data")
-    return HttpResponse("Bad data")
+            return HttpResponse(status=204)
