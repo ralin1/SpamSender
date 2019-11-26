@@ -61,6 +61,7 @@ def listener(api):
     myStream.filter(track=['bitcoin'], is_async=True)
 
 
+# deprecated
 def printer(data_in):
     for a in data_in:
         # To get full text
@@ -71,19 +72,17 @@ def printer(data_in):
         # print(a)
 
 
+# in: api ref, text to search, result: list of users tweet lists => result[user[tweet, tweet, tweet],...,user[tweet,...,tweet]]
 def search_word(api, text):
-    search_results = api.search(q=text, tweet_mode='extended', count=3)
+    search_results = api.search(q=text, tweet_mode='extended', count=3)  # limit 1000
+    result = []
     for a in search_results:
-        uid = api.get_status(a.id, tweet_mode='extended')._json['user']['id']
-        search_user = api.get_user(user_id=uid)
-        upo = api.user_timeline(user_id=uid, count=4)
-        tweets_for_csv = [tweet.text for tweet in upo]
-        c = 0
-        for b in tweets_for_csv:
-            c += 1
-            print(c, '. ', b)
-    printer(search_results)
-    return search_results
+        user_id = api.get_status(a.id, tweet_mode='extended')._json['user']['id']
+        # search_user = api.get_user(user_id=user_id)
+        user_posts = api.user_timeline(user_id=user_id, count=10)  # limit 200
+        result.append([tweet.text for tweet in user_posts])
+    # print(result)
+    return result
 
 
 if __name__ == "__main__":
