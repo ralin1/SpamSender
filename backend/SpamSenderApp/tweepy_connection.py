@@ -89,7 +89,6 @@ if __name__ == "__main__":
     api = get_api()
 
     # user = user_object(api)
-
     # listener(api)
 
     res = search_word(api, "cześć")
