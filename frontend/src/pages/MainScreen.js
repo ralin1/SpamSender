@@ -12,6 +12,7 @@ import CreateMessage from "./CreateMessage"
 import FindContacts from "./FindContacts"
 import GetMails from "./GetMails"
 import HelpPage from "./HelpPage"
+import SignInForm from "./SignInForm";
 
 
 class MainScreen extends Component {
@@ -51,7 +52,7 @@ class MainScreen extends Component {
                             </a>
                         </li>
                         <li>
-                            <NavLink to={"/main/ChooseMessage"}>Redaguj wiadomość</NavLink>
+                            <NavLink to={"/main"}>Redaguj wiadomość</NavLink>
                         </li>
                         <li>
                             <NavLink to={"/main/CreateMessage"}>Zarządzaj szablonami</NavLink>
@@ -66,31 +67,18 @@ class MainScreen extends Component {
                             <NavLink to={"/main/HelpPage"}>Moze cos jeszcze???</NavLink>
                         </li>
                         <li>
-                            <a href="/">Wyloguj</a>
+                            <a href="/sign-in">Wyloguj</a>
                         </li>
-
-                        {/*<li className="dropdown">*/}
-                        {/*    <a href="#" className="dropdown-toggle" data-toggle="dropdown">Works <span*/}
-                        {/*        className="caret"></span></a>*/}
-                        {/*    <ul className="dropdown-menu" role="menu">*/}
-                        {/*        <li className="dropdown-header">Dropdown heading</li>*/}
-                        {/*        <li><a href="#">Action</a></li>*/}
-                        {/*        <li><a href="#">Another action</a></li>*/}
-                        {/*        <li><a href="#">Something else here</a></li>*/}
-                        {/*        <li><a href="#">Separated link</a></li>*/}
-                        {/*        <li><a href="#">One more separated link</a></li>*/}
-                        {/*    </ul>*/}
-                        {/*</li>*/}
-
                     </ul>
                 </nav>
             </div>
             <div className="App__Form">
-                <Route path="/main/ChooseMessage" exect component={ChooseMessage}/>
-                <Route path="/main/CreateMessage" component={CreateMessage}/>
+                <Route path="/main"  component={ChooseMessage}/>
+                <Route path="/main/CreateMessage"  component={CreateMessage}/>
                 <Route path="/main/FindContacts" component={FindContacts}/>
                 <Route path="/main/GetMails" component={GetMails}/>
                 <Route path="/main/HelpPage" component={HelpPage}/>
+                <Route path="/sign-in" component={SignInForm}/>
             </div>
         </div>
     }

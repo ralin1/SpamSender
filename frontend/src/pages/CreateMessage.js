@@ -7,8 +7,8 @@ class CreateMessage extends Component {
 
     render() {
         return (
-            <div>
-                <p>Hello</p>
+            <div className="text_form">
+                <h1>Hello</h1>
             </div>
         );
     }
