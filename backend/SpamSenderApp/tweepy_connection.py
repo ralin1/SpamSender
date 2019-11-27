@@ -92,4 +92,5 @@ if __name__ == "__main__":
 
     # listener(api)
 
-    search_word(api, "cześć")
+    res = search_word(api, "cześć")
+    print(res)
