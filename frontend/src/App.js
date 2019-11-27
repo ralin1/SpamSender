@@ -11,8 +11,7 @@ import './App.css';
 class App extends Component {
     render() {
         return (
-            <Router basename="/react-auth-ui/">
-                <Route exact path="/" component={SignUpForm}>
+            <div> <Route exact path="/" component={SignUpForm}>
                 </Route>
                 <Route path="/sign-in" component={SignInForm}>
                 </Route>
@@ -20,7 +19,7 @@ class App extends Component {
                 </Route>
                 <Route path="/main" component={MainScreen}>
                 </Route>
-            </Router>
+            </div>
         );
     }
 }
