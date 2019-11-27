@@ -8,7 +8,16 @@ class HelpPage extends Component {
     render() {
         return (
             <div>
-                <p>Hello</p>
+                <form action="mailto:">
+                    <label for="name">Imie:</label>
+                    <input type="text" name="name"/>
+                    <label for="email">Poczta:</label>
+                    <input type="text" name="email"/>
+                    <label for="comment">Wiadomość:</label>
+                    <input type="text" name="comment" size="50"/>
+                    <input type="submit" value="Wyśli"/>
+                    <input type="reset" value="Wyczyść"/>
+                </form>
             </div>
         );
     }

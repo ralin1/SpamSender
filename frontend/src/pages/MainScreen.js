@@ -16,30 +16,6 @@ import SignInForm from "./SignInForm";
 
 
 class MainScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            content: "",
-            ChooseMessage: "/ChooseMessage.js",
-            CreateMessage: "/CreateMessage.js",
-            FindContacts: "/FindContacts.js",
-            HelpPage: "/HelpPage.js"
-        };
-    }
-
-    ChangingFunction(Content) {
-        switch (Content) {
-            case ChooseMessage:
-                return this.changeContent()
-        }
-    }
-
-    changeContent(newContent) {
-        this.setState({
-            content: newContent
-        });
-    };
-
     render() {
         return <div id="wrapper" className="App">
             <div className="App__Aside_main">
@@ -52,7 +28,7 @@ class MainScreen extends Component {
                             </a>
                         </li>
                         <li>
-                            <NavLink to={"/main"}>Redaguj wiadomość</NavLink>
+                            <NavLink to={"/main/ChooseMessage"}>Redaguj wiadomość</NavLink>
                         </li>
                         <li>
                             <NavLink to={"/main/CreateMessage"}>Zarządzaj szablonami</NavLink>
@@ -73,8 +49,8 @@ class MainScreen extends Component {
                 </nav>
             </div>
             <div className="App__Form">
-                <Route path="/main"  component={ChooseMessage}/>
-                <Route path="/main/CreateMessage"  component={CreateMessage}/>
+                <Route path="/main/ChooseMessage" component={ChooseMessage}/>
+                <Route path="/main/CreateMessage" component={CreateMessage}/>
                 <Route path="/main/FindContacts" component={FindContacts}/>
                 <Route path="/main/GetMails" component={GetMails}/>
                 <Route path="/main/HelpPage" component={HelpPage}/>

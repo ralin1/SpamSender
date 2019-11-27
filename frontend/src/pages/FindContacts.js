@@ -8,7 +8,7 @@ class FindContacts extends Component {
     render() {
         return (
             <div>
-                <p>Hello</p>
+                <button>Szukaj Kontakty</button>
             </div>
         );
     }
