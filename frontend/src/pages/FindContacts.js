@@ -8,6 +8,8 @@ class FindContacts extends Component {
     render() {
         return (
             <div>
+                <label>Tag</label>
+                <input placeholder="Wpisz tag"/>
                 <button>Szukaj Kontakty</button>
             </div>
         );

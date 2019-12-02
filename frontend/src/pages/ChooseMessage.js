@@ -9,7 +9,9 @@ class ChooseMessage extends Component {
     render() {
         return (
             <div className="text_form">
-                <label for="text">Napisz szablon</label>
+                <label>TAG:</label>
+                <input placeholder="Wpisz tag"/>
+                <label for="text">Napisz szablon:</label>
                 <textarea id="text" name="text" rows="6" cols="33" >Text</textarea>
                 <button for="text">Zapisz</button>
             </div>

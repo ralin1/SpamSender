@@ -14,7 +14,6 @@ import GetMails from "./GetMails"
 import HelpPage from "./HelpPage"
 import SignInForm from "./SignInForm";
 
-
 class MainScreen extends Component {
     render() {
         return <div id="wrapper" className="App">
