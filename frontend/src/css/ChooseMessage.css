@@ -10,13 +10,6 @@ textarea {
     border-radius: 5px;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px #999;
+    width: 100%;
+    height: auto;
 }
-
-label {
-    color: #1a1a1a;
-    display: block;
-    margin-bottom: 10px;
-}
-button{
-    margin-bottom: 10px;
- }

@@ -6,6 +6,7 @@ from django.http import HttpRequest
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import auth
 
 firebase = {
     'apiKey': "AIzaSyAiSYKW1D6KquwC_0LP55C_YhNR9cirin4",
@@ -20,7 +21,7 @@ firebase = {
 
 firebase = pyrebase.initialize_app(firebase)
 
-auth = firebase.auth()
+authe = firebase.auth()
 
 @csrf_exempt
 def login(request):
@@ -33,7 +34,7 @@ def login(request):
         print(email)
         print(password)
         try:
-            auth.sign_in_with_email_and_password(email, password)
+            authe.sign_in_with_email_and_password(email, password)
             print("Done")
             return HttpResponse(status=200)
         except:
@@ -41,6 +42,21 @@ def login(request):
             return HttpResponse(status=204)
     return HttpResponse(status=204)
 
+
+@csrf_exempt
+def logout(request):
+    if request.method == 'POST':
+        print(request.body)
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        try:
+            auth.logout(request)
+            print("Done")
+            return HttpResponse(status=200)
+        except:
+            print("Internal error")
+            return HttpResponse(status=204)
+    return HttpResponse(status=204)
 
 @csrf_exempt
 def signup(request):
@@ -56,7 +72,7 @@ def signup(request):
         print(repassword)
         if password == repassword:
             try:
-                auth.create_user_with_email_and_password(email, password)
+                authe.create_user_with_email_and_password(email, password)
                 print("Done")
                 return HttpResponse(status=200)
             except:
@@ -77,7 +93,7 @@ def reset(request):
         email = body['email']
         print(email)
         try:
-            auth.send_password_reset_email(email)
+            authe.send_password_reset_email(email)
             print("Done")
             return HttpResponse(status=200)
         except:

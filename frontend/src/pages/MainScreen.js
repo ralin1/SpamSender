@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {HashRouter as Router, Route, NavLink, Link, IndexRoute, hashHistory} from 'react-router-dom';
+import {HashRouter as Router, Route, NavLink, Link, IndexRoute, hashHistory, Redirect} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min'
 import '../css/menu.css'
@@ -14,7 +14,42 @@ import GetMails from "./GetMails"
 import HelpPage from "./HelpPage"
 import SignInForm from "./SignInForm";
 
+function logout() {
+    fetch('http://127.0.0.1:8000/logout/', {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify("wyloguj"),
+        headers: {
+            Accept: 'application/json'
+        }
+    }).then(function (response) {
+        console.log(response.status);
+        if (response.status === 200) {
+            console.log("Redirect");
+            this.setRedirect();
+            // return <NavLink to='/sign-in'/>;
+        } else alert("Błąd wylogowania");
+    });
+}
+
 class MainScreen extends Component {
+    constructor() {
+        super();
+        this.state = {
+            redirect: false
+        };
+    }
+
+    setRedirect = () => {
+        this.setState({
+            redirect: true
+        })
+    };
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/sign-in'/>
+        }
+    };
     render() {
         return <div id="wrapper" className="App">
             <div className="App__Aside_main">
@@ -39,10 +74,11 @@ class MainScreen extends Component {
                             <NavLink to={"/main/GetMails"}>Odebrane</NavLink>
                         </li>
                         <li>
+                            {this.renderRedirect()}
                             <NavLink to={"/main/HelpPage"}>Moze cos jeszcze???</NavLink>
                         </li>
                         <li>
-                            <a href="/sign-in">Wyloguj</a>
+                            <a onClick={this.setRedirect}>Wyloguj</a>
                         </li>
                     </ul>
                 </nav>

@@ -88,7 +88,8 @@ def search_word(api, text):
 if __name__ == "__main__":
     api = get_api()
 
-    # user = user_object(api)
+    user = get_user(api)
+    print_data(user)
     # listener(api)
 
     res = search_word(api, "cześć")

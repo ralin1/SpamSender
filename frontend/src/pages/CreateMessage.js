@@ -3,28 +3,70 @@ import {browserHistory} from "react-router";
 import {Link, NavLink} from 'react-router-dom';
 import Logo from "../logo1.png";
 import '../css/CreateMessage.css'
+import DynamicSelect from "../js/DynamicSelect";
+
+import '../App.css';
+//Pobieranie zapisanych szablonów z firebase
+const arrayOfData = [
+    {
+        id: 'Tylko testuje mozliwosci listy',
+        name: 'Jerry'
+    },
+    {
+        id: '2 - Elaine',
+        name: 'Elaine'
+    },
+    {
+        id: '3 - Kramer',
+        name: 'Kramer'
+    },
+    {
+        id: '4 - George',
+        name: 'George'
+    },
+];
 
 class CreateMessage extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            selectedValue: 'Nothing selected'
+        }
+    }
+
+    handleSelectChange = (selectedValue) => {
+        this.setState({
+            selectedValue: selectedValue
+        });
+    }
 
     render() {
         return (
-            <div className="text_form">
-                <React.Fragment>
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-primary">
-                            <p>Nazwa szablonu:</p>
-                            <p>Text:</p>
-                        </li>
-                        <li class="list-group-item list-group-item-primary">List item 2</li>
-                        <li class="list-group-item list-group-item-primary">List item 3</li>
-                    </ul>
-                </React.Fragment>
-                <button name="edit">Edytuj szablon</button>
-                <button name="edit">Usuń szablon</button>
-                <button as={NavLink} to={"/main/ChooseMessage"}>Nowy szablon</button>
+            <body className="text_form">
 
-
+            <div>
+                <label htmlFor="text">Wybierz szablon:</label>
             </div>
+            <DynamicSelect arrayOfData={arrayOfData} onSelectChange={this.handleSelectChange}/>
+            <br/><br/>
+            <p>Nazwa szablonu:</p>
+            <div>
+                <input placeholder="Nazwa"/>
+            </div>
+            <p>Treść:</p>
+            <button name="name">Imię i nazwisko</button>
+            <button name="username">Nazwa użytkownika</button>
+            <button name="city">Miasto</button>
+            <div>
+                <textarea id="text" name="text">Text</textarea>
+            </div>
+            <button name="edit">Usuń</button>
+            <button as={NavLink} to={"/main/ChooseMessage"}>Zapisz</button>
+
+            <p>
+                Taki wynik: {this.state.selectedValue}
+            </p>
+            </body>
         );
     }
 }
