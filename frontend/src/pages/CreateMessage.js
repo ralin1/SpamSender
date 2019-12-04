@@ -44,7 +44,7 @@ class CreateMessage extends Component {
     }
 
     onClick(e) {
-       fetch(url, {
+        fetch(url, {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify(this.state),
@@ -55,14 +55,11 @@ class CreateMessage extends Component {
             console.log(response.status);
             if (response.status === 200) {
                 alert("Szablon został zapisany");
-            }
-            else if (response.status === 204) {
+            } else if (response.status === 204) {
                 alert("Nazwa i treść są wymagane");
-            }
-            else if  (response.status === 205) {
+            } else if (response.status === 205) {
                 alert("Szablon o takiej nazwie już istnieje");
-            }
-            else alert("Błąd");
+            } else alert("Błąd");
         });
         e.preventDefault();
     }
@@ -88,24 +85,26 @@ class CreateMessage extends Component {
             <body className="text_form">
 
             <div>
-                <label htmlFor="text">Wybierz szablon:</label>
+                <label htmlFor="text" className="margin">Wybierz szablon:</label>
             </div>
             <DynamicSelect arrayOfData={arrayOfData} onSelectChange={this.handleSelectChange}/>
             <br/><br/>
-            <p>Nazwa szablonu:</p>
+            <p className="margin">Nazwa szablonu:</p>
             <div>
                 <input placeholder="Nazwa" name="name" value={this.state.name} onChange={this.handleChange}/>
             </div>
-            <p>Treść:</p>
-            <button name="name">Imię i nazwisko</button>
-            <button name="username">Nazwa użytkownika</button>
-            <button name="city">Miasto</button>
+            <p className="margin">Dodaj dynamiczne pole do tekstu:</p>
+            <button className="FormField__Button mr-20" name="name">Imię i nazwisko</button>
+            <button className="FormField__Button mr-20" name="username">Nazwa użytkownika</button>
+            <button className="FormField__Button mr-20" name="city">Miasto</button>
+            <p className="margin">Treść:</p>
             <div>
                 <textarea id="text" name="text" value={this.state.text} onChange={this.handleChange}/>
             </div>
-            <button name="edit">Usuń</button>
-            <button onClickCapture={this.onClick}>Zapisz</button>
-            <p>
+            <button className="FormField__Button mr-20" name="edit">Usuń szablon</button>
+            <button className="FormField__Button mr-20" onClickCapture={this.onClick}>Zapisz szablon</button>
+            <button className="FormField__Button mr-20" name="edit">Dodaj nowy szablon</button>
+            <p className="margin">
                 Taki wynik: {this.state.selectedValue}
             </p>
             </body>

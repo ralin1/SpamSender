@@ -84,6 +84,15 @@ def search_word(api, text):
     return result
 
 
+def search_users(api, text):
+    search_results = api.search(q=text, tweet_mode='extended', count=3, lang="en")  # limit 1000
+    result = []
+    for a in search_results:
+        user_id = api.get_status(a.id, tweet_mode='extended')._json['user']['id']
+        result.append(user_id)
+    # print(result)
+    return result
+
 def find_users(tag):
     names = {}
     for tweet in tweepy.Cursor(get_api().search, q=tag,

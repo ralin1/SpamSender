@@ -10,7 +10,7 @@ import DynamicSelect from '../js/DynamicSelect';
 //Pobieranie zapisanych szablonów z firebase
 const url = 'http://127.0.0.1:8000/get_template/';
 
-const arrayOfData = [
+var arrayOfData = [
     {
         id: 'Tylko testuje mozliwosci listy',
         name: 'Jerry'
@@ -49,7 +49,7 @@ class ChooseMessage extends Component {
                 Accept: 'application/json'
             }
         }).then(response => response.json())
-            .then(json => console.log(json));
+            .then(json => arrayOfData.push({id: 'Tylko testuje mozliwosci listy', name: json[1]}));
         //     .then(function (response) {
         //     console.log(response.json());
         //     if (response.status === 200) {
@@ -81,23 +81,23 @@ class ChooseMessage extends Component {
         return (
             <body className="textForm">
             <div>
-                <label>TAG:</label>
+                <label className="margin">TAG:</label>
             </div>
             <div>
                 <input className="tag" placeholder="Wpisz tag"/>
             </div>
             <div>
-                <label for="text">Wybierz szablon:</label>
+                <label className="margin" for="text">Wybierz szablon:</label>
             </div>
             <DynamicSelect arrayOfData={arrayOfData} onSelectChange={this.handleSelectChange}/> <br/><br/>
 
             {/*<div>*/}
             {/*    <textarea id="text" name="text">Text</textarea>*/}
             {/*</div>*/}
-            <button className="button" for="text" onClickCapture={this.onClick}>Wyślij</button>
+            <button className="FormField__Button mr-20" for="text" onClickCapture={this.onClick}>Wyślij</button>
 
 
-            <div>
+            <div className="margin">
                 Taki wynik: {this.state.selectedValue}
             </div>
             </body>

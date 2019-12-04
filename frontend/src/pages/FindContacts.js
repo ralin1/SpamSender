@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { browserHistory } from "react-router";
+import {browserHistory} from "react-router";
 import {Link, NavLink} from 'react-router-dom';
 import Logo from "../logo1.png";
 
@@ -19,7 +19,7 @@ class FindContacts extends Component {
     }
 
     onClick(e) {
-       fetch(url, {
+        fetch(url, {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify(this.state),
@@ -30,11 +30,9 @@ class FindContacts extends Component {
             console.log(response.status);
             if (response.status === 200) {
                 alert("Wynik");
-            }
-            else if  (response.status === 205) {
+            } else if (response.status === 205) {
                 alert("Tag jest pusty");
-            }
-            else alert("Błąd");
+            } else alert("Błąd");
         });
         e.preventDefault();
     }
@@ -52,9 +50,11 @@ class FindContacts extends Component {
     render() {
         return (
             <div>
-                <label>Tag</label>
+                <p className="margin">Wpisz tag w celu znalezienia liczby odbiorców</p>
                 <input placeholder="Wpisz tag" name="tag" value={this.state.tag} onChange={this.handleChange}/>
-                <button onClickCapture={this.onClick}>Szukaj Kontakty</button>
+                <div>
+                    <button className="FormField__Button mr-20" onClickCapture={this.onClick}>Szukaj Kontaktów</button>
+                </div>
             </div>
         );
     }

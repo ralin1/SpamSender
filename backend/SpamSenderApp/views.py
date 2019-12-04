@@ -31,6 +31,7 @@ def find_user(request):
         body = json.loads(body_unicode)
         if body['tag'] != '':
             try:
+                print("xx")
                 for username, screen_name in find_users("#" + body['tag']).items():
                     print(username, screen_name)
                     data = {

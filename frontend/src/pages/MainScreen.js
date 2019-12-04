@@ -70,13 +70,13 @@ class MainScreen extends Component {
                         <li>
                             <NavLink to={"/main/FindContacts"}>Szukaj odbiorców</NavLink>
                         </li>
-                        <li>
-                            <NavLink to={"/main/GetMails"}>Odebrane</NavLink>
-                        </li>
-                        <li>
-                            {this.renderRedirect()}
-                            <NavLink to={"/main/HelpPage"}>Moze cos jeszcze???</NavLink>
-                        </li>
+                        {/*<li>*/}
+                        {/*    <NavLink to={"/main/GetMails"}>Odebrane</NavLink>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    {this.renderRedirect()}*/}
+                        {/*    <NavLink to={"/main/HelpPage"}>Moze cos jeszcze???</NavLink>*/}
+                        {/*</li>*/}
                         <li>
                             <a onClick={this.setRedirect}>Wyloguj</a>
                         </li>
