@@ -9,5 +9,6 @@ urlpatterns = [
     url('reset/', views.reset),
     url('logout/', views.logout),
     url('temp/', views.temp),
-    url('get_temp/', views.get_temp)
+    url('get_template/', views.get_template),
+    url('find_user/', views.find_user)
 ]

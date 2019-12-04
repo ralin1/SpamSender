@@ -1,5 +1,4 @@
 import json
-
 import tweepy
 
 
@@ -74,7 +73,7 @@ def printer(data_in):
 
 # in: api ref, text to search, result: list of users tweet lists => result[user[tweet, tweet, tweet],...,user[tweet,...,tweet]]
 def search_word(api, text):
-    search_results = api.search(q=text, tweet_mode='extended', count=3)  # limit 1000
+    search_results = api.search(q=text, tweet_mode='extended', count=3, lang="en")  # limit 1000
     result = []
     for a in search_results:
         user_id = api.get_status(a.id, tweet_mode='extended')._json['user']['id']
@@ -85,12 +84,22 @@ def search_word(api, text):
     return result
 
 
-if __name__ == "__main__":
-    api = get_api()
+def find_users(tag):
+    names = {}
+    for tweet in tweepy.Cursor(get_api().search, q=tag,
+                               lang="en").items(5):
+        names[tweet.user.name] = tweet.user.screen_name
+    return names
 
-    user = get_user(api)
-    print_data(user)
-    # listener(api)
 
-    res = search_word(api, "cześć")
-    print(res)
+# if __name__ == "__main__":
+#     find_users("#sport")
+#     api = get_api()
+#
+#     user = get_user(api)
+#     print_data(user)
+#     # listener(api)
+#
+#
+#     res = search_word(api, "#sport")
+#     print(res)

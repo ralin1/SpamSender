@@ -65,4 +65,4 @@ node_modules/
 .env
 
 # security credentials
-backend/SpamSenderApp/twitter_credentials.json
+backend/twitter_credentials.json

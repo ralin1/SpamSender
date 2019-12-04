@@ -122,4 +122,4 @@ dmypy.json
 # Datasource local storage ignored files
 /dataSources.local.xml
 
-serviceAccountKey.json
+twitter_credentials.json

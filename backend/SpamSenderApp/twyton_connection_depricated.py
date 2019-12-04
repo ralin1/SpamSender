@@ -19,12 +19,12 @@ def read_csv():
 
 # Save the credentials object to file
 def write_configuration(credentials):
-    with open("twitter_credentials.json", "w") as file:
+    with open("../twitter_credentials.json", "w") as file:
         json.dump(credentials, file)
 
 
 def load_configuration():
-    with open("twitter_credentials.json", "r") as file:
+    with open("../twitter_credentials.json", "r") as file:
         credentials = json.load(file)
     return credentials
 
