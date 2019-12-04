@@ -2,11 +2,9 @@ from django.shortcuts import render
 import pyrebase
 import json
 import json.decoder
-from django.http import HttpRequest
 from django.http import HttpResponse
-from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib import auth
+import pyrebase
 
 firebase = {
     'apiKey': "AIzaSyAiSYKW1D6KquwC_0LP55C_YhNR9cirin4",
@@ -20,8 +18,39 @@ firebase = {
 }
 
 firebase = pyrebase.initialize_app(firebase)
+db = firebase.database()
+auth = firebase.auth()
 
-authe = firebase.auth()
+
+@csrf_exempt
+def temp(request):
+    if request.method == 'POST':
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        if body['name'] != '' and body['text'] != '':
+            template = db.child("templates").get()
+            for key in template.each():
+                if body['name'] == key.key():
+                    return HttpResponse(status=205)
+        else:
+            return HttpResponse(status=204)
+        try:
+            data = {
+                "text": body['text']
+            }
+            db.child("templates").child(body['name']).set(data)
+            return HttpResponse(status=200)
+        except:
+            return HttpResponse(status=206)
+
+
+@csrf_exempt
+def get_temp(request):
+    template = db.child("templates").get()
+    for value in template.each():
+        print(value.val().get('text'))
+    return HttpResponse(status=200)
+
 
 @csrf_exempt
 def login(request):
@@ -34,7 +63,7 @@ def login(request):
         print(email)
         print(password)
         try:
-            authe.sign_in_with_email_and_password(email, password)
+            user = auth.sign_in_with_email_and_password(email, password)
             print("Done")
             return HttpResponse(status=200)
         except:
@@ -47,16 +76,19 @@ def login(request):
 def logout(request):
     if request.method == 'POST':
         print(request.body)
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
-        try:
-            auth.logout(request)
-            print("Done")
-            return HttpResponse(status=200)
-        except:
-            print("Internal error")
-            return HttpResponse(status=204)
+        return HttpResponse(status=200)
+        # print(request.body)
+        # body_unicode = request.body.decode('utf-8')
+        # body = json.loads(body_unicode)
+        # try:
+        #     auth.logout(request)
+        #     print("Done")
+        #     return HttpResponse(status=200)
+        # except:
+        #     print("Internal error")
+        #     return HttpResponse(status=204)
     return HttpResponse(status=204)
+
 
 @csrf_exempt
 def signup(request):
@@ -72,7 +104,7 @@ def signup(request):
         print(repassword)
         if password == repassword:
             try:
-                authe.create_user_with_email_and_password(email, password)
+                auth.create_user_with_email_and_password(email, password)
                 print("Done")
                 return HttpResponse(status=200)
             except:
@@ -93,7 +125,7 @@ def reset(request):
         email = body['email']
         print(email)
         try:
-            authe.send_password_reset_email(email)
+            auth.send_password_reset_email(email)
             print("Done")
             return HttpResponse(status=200)
         except:

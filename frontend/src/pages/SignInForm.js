@@ -36,7 +36,7 @@ class SignInForm extends Component {
     };
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <Redirect to='/main'/>
+            return <Redirect to='/main/ChooseMessage'/>
         }
     };
 
