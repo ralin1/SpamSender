@@ -7,7 +7,15 @@ import DynamicSelect from "../js/DynamicSelect";
 
 import '../App.css';
 //Pobieranie zapisanych szablonów z firebase
-const arrayOfData = [
+var arrayOfData = [];
+
+var emptyArray = [
+    {
+        id: '',
+        name: 'Dodaj nowy szablon'
+    }
+];
+var ToBeReplacedWithDBDataREALLY = [
     {
         id: 'Tylko testuje mozliwosci listy',
         name: 'Jerry'
@@ -23,8 +31,10 @@ const arrayOfData = [
     {
         id: '4 - George',
         name: 'George'
-    },
+    }
 ];
+
+var canDeleting = false;
 
 const url = 'http://127.0.0.1:8000/temp/';
 
@@ -34,16 +44,17 @@ class CreateMessage extends Component {
         super(props);
 
         this.state = {
-            selectedValue: 'Nothing selected',
             name: "",
             text: ""
         };
 
+        arrayOfData = emptyArray.concat(ToBeReplacedWithDBDataREALLY)
+
         this.handleChange = this.handleChange.bind(this);
-        this.onClick = this.onClick.bind(this);
+        this.saveButton = this.saveButton.bind(this);
     }
 
-    onClick(e) {
+    saveButton(e) {
         fetch(url, {
             method: 'POST',
             mode: 'cors',
@@ -74,11 +85,35 @@ class CreateMessage extends Component {
         });
     }
 
-    handleSelectChange = (selectedValue) => {
-        this.setState({
-            selectedValue: selectedValue
-        });
+    deleteButton() {
+        if (canDeleting) {
+            //    Can be deleted
+            alert("yes")
+
+        } else alert("no")
+        //    Else it's Dodaj nowy szablon element
     }
+
+    handleSelectChange = (selectedValue) => {
+        if (selectedValue !== "") {
+            this.setState({
+                text: selectedValue
+            });
+            canDeleting = true
+        } else {
+            this.setState({
+                text: ""
+            });
+            canDeleting = false
+        }
+
+    };
+
+    appendName = (e) => {
+        this.setState({
+            text: this.state.text + "{" + e + "}"
+        });
+    };
 
     render() {
         return (
@@ -94,19 +129,25 @@ class CreateMessage extends Component {
                 <input placeholder="Nazwa" name="name" value={this.state.name} onChange={this.handleChange}/>
             </div>
             <p className="margin">Dodaj dynamiczne pole do tekstu:</p>
-            <button className="FormField__Button mr-20" name="name">Imię i nazwisko</button>
-            <button className="FormField__Button mr-20" name="username">Nazwa użytkownika</button>
-            <button className="FormField__Button mr-20" name="city">Miasto</button>
+            <button className="FormField__Button mr-20" name="name" onClick={(e) => this.appendName("name")}>Imię i
+                nazwisko
+            </button>
+            <button className="FormField__Button mr-20" name="username"
+                    onClick={(e) => this.appendName("username")}>Nazwa użytkownika
+            </button>
+            <button className="FormField__Button mr-20" name="city" onClick={(e) => this.appendName("city")}>Miasto
+            </button>
             <p className="margin">Treść:</p>
             <div>
                 <textarea id="text" name="text" value={this.state.text} onChange={this.handleChange}/>
             </div>
-            <button className="FormField__Button mr-20" name="edit">Usuń szablon</button>
-            <button className="FormField__Button mr-20" onClickCapture={this.onClick}>Zapisz szablon</button>
-            <button className="FormField__Button mr-20" name="edit">Dodaj nowy szablon</button>
-            <p className="margin">
+            <button className="FormField__Button mr-20" onClickCapture={this.deleteButton}>Usuń szablon</button>
+            <button className="FormField__Button mr-20" onClickCapture={this.saveButton}>Zapisz szablon</button>
+
+            <div className="margin">
                 Taki wynik: {this.state.selectedValue}
-            </p>
+            </div>
+
             </body>
         );
     }

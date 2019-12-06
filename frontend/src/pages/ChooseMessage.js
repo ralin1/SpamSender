@@ -10,7 +10,7 @@ import DynamicSelect from '../js/DynamicSelect';
 //Pobieranie zapisanych szablonów z firebase
 const url = 'http://127.0.0.1:8000/get_template/';
 
-var arrayOfData = [
+const arrayOfData = [
     {
         id: 'Tylko testuje mozliwosci listy',
         name: 'Jerry'
