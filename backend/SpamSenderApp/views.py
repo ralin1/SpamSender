@@ -5,7 +5,7 @@ import pyrebase
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .tweepy_connection import find_users
+from .tweepy_connection import search_users_data
 
 # from ..SpamSenderApp import tweepy_connection
 firebase = {
@@ -30,18 +30,15 @@ def find_user(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         users = {}
-        print(body)
+        r = "#" + body['tag']
+        print(r)
         if body['tag'] != '':
             try:
-                print("hi")
-                for username, screen_name in find_users("#" + body['tag']).items():
-                    print(username, screen_name)
-                    users["Username: " + username] = "Screen name: " + screen_name
-                    data = {
-                        "username": username
-                    }
-                    # db.child("users").child(body['tag']).child(screen_name).set(data)
-                 # print(users)
+                result = search_users_data(r)
+                print(result)
+                print(len(result))
+                # db.child("users").child(body['tag']).child(screen_name).set(data)
+                # print(users)
                 return HttpResponse(status=200)
             except:
                 return HttpResponse(status=204)
@@ -100,6 +97,7 @@ def delete_template(request):
                 return HttpResponse(status=204)
         except:
             return HttpResponse(status=206)
+
 
 @csrf_exempt
 def login(request):

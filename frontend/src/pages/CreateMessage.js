@@ -15,32 +15,30 @@ var emptyArray = [
         name: 'Dodaj nowy szablon'
     }
 ];
-var ToBeReplacedWithDBDataREALLY = [
-    {
-        id: 'Tylko testuje mozliwosci listy',
-        name: 'Jerry'
-    },
-    {
-        id: '2 - Elaine',
-        name: 'Elaine'
-    },
-    {
-        id: '3 - Kramer',
-        name: 'Kramer'
-    },
-    {
-        id: '4 - George',
-        name: 'George'
-    }
-];
 
 var canDeleting = false;
 
 const url = 'http://127.0.0.1:8000/temp/';
 
 class CreateMessage extends Component {
-
     constructor(props) {
+        //load array from DATABASE
+        var ToBeReplacedWithDBDataREALLY = [
+            {
+                id: '1a',
+                name: '1b'
+            },
+            {
+                id: '2a',
+                name: '2b'
+            },
+            {
+                id: '3a',
+                name: '3b'
+            },
+        ];
+
+
         super(props);
 
         this.state = {
@@ -107,15 +105,17 @@ class CreateMessage extends Component {
         e.preventDefault();
     }
 
-    handleSelectChange = (selectedValue) => {
+    handleSelectChange = (selectedValue, selectedId) => {
         if (selectedValue !== "") {
             this.setState({
-                text: selectedValue
+                text: selectedValue,
+                name: arrayOfData.find(a => a.id === selectedValue).name
             });
             canDeleting = true
         } else {
             this.setState({
-                text: ""
+                text: "",
+                name: "",
             });
             canDeleting = false
         }
@@ -133,7 +133,7 @@ class CreateMessage extends Component {
             <body className="text_form">
 
             <div>
-                <label htmlFor="text" className="margin">Wybierz szablon:</label>
+                <p htmlFor="text" className="margin">Wybierz szablon:</p>
             </div>
             <DynamicSelect arrayOfData={arrayOfData} onSelectChange={this.handleSelectChange}/>
             <br/><br/>
@@ -141,7 +141,7 @@ class CreateMessage extends Component {
             <div>
                 <input placeholder="Nazwa" id="name" name="name" value={this.state.name} onChange={this.handleChange}/>
             </div>
-            <p className="margin">Dodaj dynamiczne pole do tekstu:</p>
+            <p className="margin">Dodaj dynamiczne pole do treści:</p>
             <button className="FormField__Button mr-20" name="name" onClick={(e) => this.appendName("name")}>Imię i
                 nazwisko
             </button>
@@ -156,11 +156,6 @@ class CreateMessage extends Component {
             </div>
             <button className="FormField__Button mr-20" onClickCapture={this.deleteButton}>Usuń szablon</button>
             <button className="FormField__Button mr-20" onClickCapture={this.saveButton}>Zapisz szablon</button>
-
-            <div className="margin">
-                Taki wynik: {this.state.selectedValue}
-            </div>
-
             </body>
         );
     }

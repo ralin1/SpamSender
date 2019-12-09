@@ -10,31 +10,40 @@ import DynamicSelect from '../js/DynamicSelect';
 //Pobieranie zapisanych szablonów z firebase
 const url = 'http://127.0.0.1:8000/get_template/';
 
-const arrayOfData = [
-    {
-        id: 'Tylko testuje mozliwosci listy',
-        name: 'Jerry'
-    },
-    {
-        id: '2 - Elaine',
-        name: 'Elaine'
-    },
-    // {
-    //     id: '3 - Kramer',
-    //     name: 'Kramer'
-    // },
-    // {
-    //     id: '4 - George',
-    //     name: 'George'
-    // },
-];
+var arrayOfData;
 
 class ChooseMessage extends Component {
     constructor(props) {
+        //load array from DATABASE
+        arrayOfData = [
+            {
+                id: 'Tylko testuje mozliwosci listy',
+                name: 'Jerry'
+            },
+            {
+                id: '2 - Elaine',
+                name: 'Elaine'
+            },
+            // {
+            //     id: '3 - Kramer',
+            //     name: 'Kramer'
+            // },
+            // {
+            //     id: '4 - George',
+            //     name: 'George'
+            // },
+        ];
+
         super(props);
-        this.state = {
-            selectedValue: 'Nothing selected'
-        };
+        if ((arrayOfData.length) > 0) {
+            this.state = {
+                selectedValue: arrayOfData[0]['id']
+            };
+        } else {
+            this.state = {
+                selectedValue: ''
+            };
+        }
 
         this.handleChange = this.handleChange.bind(this);
         this.onClick = this.onClick.bind(this);
@@ -50,9 +59,9 @@ class ChooseMessage extends Component {
                 Accept: 'application/json'
             }
         }).then(response => response.json())
-            // .then(json => arrayOfData.push({id: 'Tylko testuje mozliwosci listy', name: json[1]}));
+        // .then(json => arrayOfData.push({id: 'Tylko testuje mozliwosci listy', name: json[1]}));
             .then(function (json) {
-                console.log(json["name"], json["text"])
+                console.log(json["name"], json["text"]);
                 for (let i = 0; i < json["name"].length; i++) {
                     console.log(json["name"][i]);
                     console.log(json["text"][i]["text"]);
@@ -90,13 +99,13 @@ class ChooseMessage extends Component {
         return (
             <body className="textForm">
             <div>
-                <label className="margin">TAG:</label>
+                <p className="margin">TAG:</p>
             </div>
             <div>
                 <input className="tag" placeholder="Wpisz tag"/>
             </div>
             <div>
-                <label className="margin" for="text">Wybierz szablon:</label>
+                <p className="margin" for="text">Wybierz szablon:</p>
             </div>
             <DynamicSelect arrayOfData={arrayOfData} onSelectChange={this.handleSelectChange}/> <br/><br/>
 
@@ -107,7 +116,7 @@ class ChooseMessage extends Component {
 
 
             <div className="margin">
-                Taki wynik: {this.state.selectedValue}
+                Podgląd szablonu: {this.state.selectedValue}
             </div>
             </body>
         );
