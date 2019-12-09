@@ -52,6 +52,7 @@ class CreateMessage extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.saveButton = this.saveButton.bind(this);
+        this.deleteButton = this.deleteButton.bind(this);
     }
 
     saveButton(e) {
@@ -85,13 +86,25 @@ class CreateMessage extends Component {
         });
     }
 
-    deleteButton() {
-        if (canDeleting) {
-            //    Can be deleted
-            alert("yes")
-
-        } else alert("no")
-        //    Else it's Dodaj nowy szablon element
+    deleteButton(e) {
+        fetch('http://127.0.0.1:8000/delete_template/', {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify(this.state),
+            headers: {
+                Accept: 'application/json'
+            }
+        }).then(function (response) {
+            console.log(response.status);
+            if (response.status === 200) {
+                alert("Szablon został usunięty");
+            } else if (response.status === 204) {
+                alert("Wpisz nazwę szablonu");
+            } else if (response.status === 205) {
+                alert("Nie ma takiego szablonu");
+            } else alert("Błąd");
+        });
+        e.preventDefault();
     }
 
     handleSelectChange = (selectedValue) => {
@@ -126,7 +139,7 @@ class CreateMessage extends Component {
             <br/><br/>
             <p className="margin">Nazwa szablonu:</p>
             <div>
-                <input placeholder="Nazwa" name="name" value={this.state.name} onChange={this.handleChange}/>
+                <input placeholder="Nazwa" id="name" name="name" value={this.state.name} onChange={this.handleChange}/>
             </div>
             <p className="margin">Dodaj dynamiczne pole do tekstu:</p>
             <button className="FormField__Button mr-20" name="name" onClick={(e) => this.appendName("name")}>Imię i

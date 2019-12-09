@@ -102,7 +102,8 @@ def get_api():
 # in: api ref, text to search, result: list of user data [(user_id, screen_name, name, location), (user_id, screen_name, name, location), ...]
 # the best, should be used
 # All data received that we need to prepare messages to send
-def search_users_data(api, text):
+def search_users_data(text):
+    api = get_api()
     search_results = api.search(q=text, tweet_mode='extended', count=3, lang="en")  # limit 1000
     result = []
     for a in search_results:
@@ -118,7 +119,8 @@ def search_users_data(api, text):
 
 # Send for each x send texts[x] message to receiver_ids[x] user
 # To serio wysyla wiadomosci na tweeterze, lepiej nie spamujcie
-def direct_message(api, receiver_ids, texts):
+def direct_message(receiver_ids, texts):
+    api = get_api()
     for a in range(len(receiver_ids)):
         api.send_direct_message(receiver_ids[a], texts[a])
         # print(receiver_ids, texts)

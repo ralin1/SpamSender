@@ -29,21 +29,23 @@ def find_user(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
+        users = {}
+        print(body)
         if body['tag'] != '':
             try:
-                print("xx")
+                print("hi")
                 for username, screen_name in find_users("#" + body['tag']).items():
                     print(username, screen_name)
+                    users["Username: " + username] = "Screen name: " + screen_name
                     data = {
                         "username": username
                     }
-                    print(data)
-                    db.child("users").child(body['tag']).child(screen_name).set(data)
+                    # db.child("users").child(body['tag']).child(screen_name).set(data)
+                 # print(users)
                 return HttpResponse(status=200)
             except:
                 return HttpResponse(status=204)
         return HttpResponse(status=205)
-    return HttpResponse(status=204)
 
 
 @csrf_exempt
@@ -51,19 +53,20 @@ def temp(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        if body['name'] != '' and body['text'] != '':
-            template = db.child("templates").get()
-            for key in template.each():
-                if body['name'] == key.key():
-                    return HttpResponse(status=205)
-        else:
-            return HttpResponse(status=204)
+        # if body['name'] != '' and body['text'] != '':
+        #     template = db.child("templates").get()
+        #     for key in template.each():
+        #         if body['name'] == key.key():
+        #             return HttpResponse(status=205)
+        # else:
+        #     return HttpResponse(status=204)
         try:
-            data = {
-                "text": body['text']
-            }
-            db.child("templates").child(body['name']).set(data)
-            return HttpResponse(status=200)
+            if body['name'] != '' and body['text'] != '':
+                data = {
+                    "text": body['text']
+                }
+                db.child("templates").child(body['name']).set(data)
+                return HttpResponse(status=200)
         except:
             return HttpResponse(status=206)
 
@@ -72,14 +75,31 @@ def temp(request):
 def get_template(request):
     if request.method == 'POST':
         template = db.child("templates").get()
-        templates = []
+        names = []
+        texts = []
         for key in template.each():
-            templates.append(key.key())
-        print(json.dumps(templates))
-        return HttpResponse(json.dumps(templates))
-    # for value in template.each():
-    #     print(value.val().get('text'))
+            names.append(key.key())
+            texts.append(key.val())
+        return JsonResponse({"name": names, "text": texts})
 
+
+@csrf_exempt
+def delete_template(request):
+    if request.method == 'POST':
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        try:
+            if body['name'] != '':
+                template = db.child("templates").get()
+                for key in template.each():
+                    if body['name'] == key.key():
+                        db.child("templates").child(body['name']).remove()
+                        return HttpResponse(status=200)
+                return HttpResponse(status=205)
+            else:
+                return HttpResponse(status=204)
+        except:
+            return HttpResponse(status=206)
 
 @csrf_exempt
 def login(request):

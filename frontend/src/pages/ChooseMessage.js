@@ -19,14 +19,14 @@ const arrayOfData = [
         id: '2 - Elaine',
         name: 'Elaine'
     },
-    {
-        id: '3 - Kramer',
-        name: 'Kramer'
-    },
-    {
-        id: '4 - George',
-        name: 'George'
-    },
+    // {
+    //     id: '3 - Kramer',
+    //     name: 'Kramer'
+    // },
+    // {
+    //     id: '4 - George',
+    //     name: 'George'
+    // },
 ];
 
 class ChooseMessage extends Component {
@@ -40,6 +40,7 @@ class ChooseMessage extends Component {
         this.onClick = this.onClick.bind(this);
     }
 
+
     onClick(e) {
         fetch(url, {
             method: 'POST',
@@ -49,7 +50,15 @@ class ChooseMessage extends Component {
                 Accept: 'application/json'
             }
         }).then(response => response.json())
-            .then(json => arrayOfData.push({id: 'Tylko testuje mozliwosci listy', name: json[1]}));
+            // .then(json => arrayOfData.push({id: 'Tylko testuje mozliwosci listy', name: json[1]}));
+            .then(function (json) {
+                console.log(json["name"], json["text"])
+                for (let i = 0; i < json["name"].length; i++) {
+                    console.log(json["name"][i]);
+                    console.log(json["text"][i]["text"]);
+                    arrayOfData.push({id: json["text"][i]["text"], name: json["name"][i]})
+                }
+            });
         //     .then(function (response) {
         //     console.log(response.json());
         //     if (response.status === 200) {
