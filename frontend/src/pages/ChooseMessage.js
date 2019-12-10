@@ -32,10 +32,15 @@ const arrayOfData = [
 class ChooseMessage extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            selectedValue: 'Nothing selected',
-            tag: ""
-        };
+        if ((arrayOfData.length) > 0) {
+            this.state = {
+                selectedValue: arrayOfData[0]['id']
+            };
+        } else {
+            this.state = {
+                selectedValue: ''
+            };
+        }
 
         this.handleChange = this.handleChange.bind(this);
         this.onClick = this.onClick.bind(this);
@@ -120,13 +125,13 @@ class ChooseMessage extends Component {
         return (
             <body className="textForm">
             <div>
-                <label className="margin">TAG:</label>
+                <p className="margin">TAG:</p>
             </div>
             <div>
                 <input className="tag" placeholder="Wpisz tag" name="tag" value={this.state.tag} onChange={this.handleChange}/>
             </div>
             <div>
-                <label className="margin" for="text">Wybierz szablon:</label>
+                <p className="margin" for="text">Wybierz szablon:</p>
             </div>
             <DynamicSelect arrayOfData={arrayOfData} onSelectChange={this.handleSelectChange}/> <br/><br/>
 
@@ -137,7 +142,7 @@ class ChooseMessage extends Component {
 
 
             <div className="margin">
-                Taki wynik: {this.state.selectedValue}
+                Podgląd szablonu: {this.state.selectedValue}
             </div>
             </body>
         );

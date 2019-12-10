@@ -5,9 +5,7 @@ import pyrebase
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .tweepy_connection import find_users
-from .tweepy_connection import direct_message
-from .tweepy_connection import search_users_data
+from .tweepy_connection import search_users_data, direct_message, search_users_data
 
 firebase = {
     'apiKey': "AIzaSyAiSYKW1D6KquwC_0LP55C_YhNR9cirin4",
@@ -52,11 +50,12 @@ def find_user(request):
         print(body)
         if body['tag'] != '':
             try:
-                print("hi")
-                for username, screen_name in find_users("#" + body['tag']).items():
+                for user_id, user_data in search_users_data("#" + body['tag']).items():
+                    # for user_id, screen_name, name, location in search_users_data("#" + body['tag']).items():
                     # print(username, screen_name)
-                    usernames.append(username)
-                    screen_names.append(screen_name)
+                    usernames.append(user_id)
+                    screen_names.append(user_data)
+                print(len(usernames))
                 return JsonResponse({"username": usernames, "screen_name": screen_names})
             except:
                 return HttpResponse(status=204)
