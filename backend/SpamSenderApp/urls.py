@@ -11,5 +11,6 @@ urlpatterns = [
     url('temp/', views.temp),
     url('get_template/', views.get_template),
     url('find_user/', views.find_user),
-    url('delete_template/', views.delete_template)
+    url('delete_template/', views.delete_template),
+    url('send_message/', views.send_message)
 ]

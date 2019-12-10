@@ -53,6 +53,34 @@ class CreateMessage extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.saveButton = this.saveButton.bind(this);
         this.deleteButton = this.deleteButton.bind(this);
+        this.handleLoad = this.handleLoad.bind(this);
+    }
+
+    componentDidMount() {
+        window.addEventListener('load', this.handleLoad)
+    }
+
+    handleLoad() {
+       fetch('http://127.0.0.1:8000/get_template/', {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify("Hello"),
+            headers: {
+                Accept: 'application/json'
+            }
+        }).then(response => response.json())
+            .then(function (json) {
+                console.log(json["name"], json["text"])
+                for (let i = 0; i < json["name"].length; i++) {
+                    console.log(json["name"][i]);
+                    console.log(json["text"][i]["text"]);
+                    arrayOfData.push({id: json["text"][i]["text"], name: json["name"][i]})
+                }
+            });
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('load', this.handleLoad)
     }
 
     saveButton(e) {

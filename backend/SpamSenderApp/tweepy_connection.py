@@ -4,7 +4,7 @@ import tweepy
 
 # Load file with credentials
 def load_configuration():
-    with open("../twitter_credentials.json", "r") as file:
+    with open("twitter_credentials.json", "r") as file:
         credentials = json.load(file)
     return credentials
 
@@ -113,7 +113,6 @@ def search_users_data(text):
                        api.get_user(user_id, tweet_mode='extended')._json['name'],
                        api.get_user(user_id, tweet_mode='extended')._json['location'])
         result.append(search_user)
-    # print(result)
     return result
 
 
@@ -136,6 +135,7 @@ def find_users(tag):
 
 
 # if __name__ == "__main__":
+#     find_users("#food")
 # # Gets api, required
 # api = get_api()
 # # Search users wrote about text

@@ -6,8 +6,9 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .tweepy_connection import find_users
+from .tweepy_connection import direct_message
+from .tweepy_connection import search_users_data
 
-# from ..SpamSenderApp import tweepy_connection
 firebase = {
     'apiKey': "AIzaSyAiSYKW1D6KquwC_0LP55C_YhNR9cirin4",
     'authDomain': "spamsender-f8925.firebaseapp.com",
@@ -25,24 +26,38 @@ auth = firebase.auth()
 
 
 @csrf_exempt
+def send_message(request):
+    if request.method == 'POST':
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        print(body)
+        try:
+            for x in search_users_data("#" + body["tag"]):
+                print(x)
+                print(body["selectedValue"].replace("{name}", str(x[2]))
+                      .replace("{username}", str(x[1])).replace("{city}", str(x[3])))
+            return HttpResponse(status=200)
+        except:
+            HttpResponse(status=204)
+    return HttpResponse(status=205)
+
+
+@csrf_exempt
 def find_user(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        users = {}
+        usernames = []
+        screen_names = []
         print(body)
         if body['tag'] != '':
             try:
                 print("hi")
                 for username, screen_name in find_users("#" + body['tag']).items():
-                    print(username, screen_name)
-                    users["Username: " + username] = "Screen name: " + screen_name
-                    data = {
-                        "username": username
-                    }
-                    # db.child("users").child(body['tag']).child(screen_name).set(data)
-                 # print(users)
-                return HttpResponse(status=200)
+                    # print(username, screen_name)
+                    usernames.append(username)
+                    screen_names.append(screen_name)
+                return JsonResponse({"username": usernames, "screen_name": screen_names})
             except:
                 return HttpResponse(status=204)
         return HttpResponse(status=205)
@@ -53,13 +68,6 @@ def temp(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        # if body['name'] != '' and body['text'] != '':
-        #     template = db.child("templates").get()
-        #     for key in template.each():
-        #         if body['name'] == key.key():
-        #             return HttpResponse(status=205)
-        # else:
-        #     return HttpResponse(status=204)
         try:
             if body['name'] != '' and body['text'] != '':
                 data = {
@@ -101,6 +109,7 @@ def delete_template(request):
         except:
             return HttpResponse(status=206)
 
+
 @csrf_exempt
 def login(request):
     if request.method == 'POST':
@@ -126,16 +135,6 @@ def logout(request):
     if request.method == 'POST':
         print(request.body)
         return HttpResponse(status=200)
-        # print(request.body)
-        # body_unicode = request.body.decode('utf-8')
-        # body = json.loads(body_unicode)
-        # try:
-        #     auth.logout(request)
-        #     print("Done")
-        #     return HttpResponse(status=200)
-        # except:
-        #     print("Internal error")
-        #     return HttpResponse(status=204)
     return HttpResponse(status=204)
 
 

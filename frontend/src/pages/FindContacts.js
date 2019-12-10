@@ -5,6 +5,7 @@ import Logo from "../logo1.png";
 
 const url = 'http://127.0.0.1:8000/find_user/';
 
+
 class FindContacts extends Component {
 
     constructor() {
@@ -26,13 +27,20 @@ class FindContacts extends Component {
             headers: {
                 Accept: 'application/json'
             }
-        }).then(function (response) {
-            console.log(response.status);
-            if (response.status === 200) {
-                alert("Wynik");
-            } else if (response.status === 205) {
-                alert("Tag jest pusty");
-            } else alert("Błąd");
+        }).then(response => response.json())
+            .then(function (json) {
+            // console.log(response.status);
+            console.log(json["username"], json["screen_name"])
+                for (let i = 0; i < json["username"].length; i++) {
+                    console.log(json["username"][i]);
+                    console.log(json["screen_name"][i]);
+                    // arrayOfData.push({id: json["text"][i]["text"], name: json["name"][i]})
+                }
+            // if (response.status === 200) {
+            //     alert("Wynik");
+            // } else if (response.status === 205) {
+            //     alert("Tag jest pusty");
+            // } else alert("Błąd");
         });
         e.preventDefault();
     }
