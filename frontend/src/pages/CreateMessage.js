@@ -16,7 +16,7 @@ var emptyArray = [
     },
     {
         id: '',
-        name: 'Dodaj nowy szablon'
+        name: 'Dodaj nowy szablon.'
     }
 ];
 

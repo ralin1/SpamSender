@@ -13,11 +13,11 @@ const url = 'http://127.0.0.1:8000/get_template/';
 var arrayOfData = [
     {
         id: '',
-        name: '.'
+        name: '1'
     },
     {
         id: '',
-        name: '.'
+        name: '2'
     }
 ];
 class ChooseMessage extends Component {

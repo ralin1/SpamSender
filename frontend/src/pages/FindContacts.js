@@ -23,7 +23,7 @@ class FindContacts extends Component {
         this.setState({
             current_state: 'przetwarzam'
         });
-        var a = this
+        var a = this;
         fetch(url, {
             method: 'POST',
             mode: 'cors',
@@ -31,24 +31,24 @@ class FindContacts extends Component {
             headers: {
                 Accept: 'application/json'
             }
-        }).then(response => response.json())
-            .then(function (json) {
-                // console.log(response.status);
-                console.log(json["username"], json["screen_name"]);
-                for (let i = 0; i < json["username"].length; i++) {
-                    console.log(json["username"][i]);
-                    console.log(json["screen_name"][i]);
-                    // arrayOfData.push({id: json["text"][i]["text"], name: json["name"][i]})
-                }
-                a.setState({
-                    current_state: json["username"].length + " osoby pisały na ten temat."
+        }).then(function (response) {
+            if (response.status === 200) {
+                response.json().then(function (json) {
+                    // console.log(response.status);
+                    console.log(json["username"], json["screen_name"]);
+                    for (let i = 0; i < json["username"].length; i++) {
+                        console.log(json["username"][i]);
+                        console.log(json["screen_name"][i]);
+                    }
+                    a.setState({
+                        current_state: json["username"].length + " osoby pisały na ten temat."
+                    });
                 });
-                // if (response.status === 200) {
-                //     alert("Wynik");
-                // } else if (response.status === 205) {
-                //     alert("Tag jest pusty");
-                // } else alert("Błąd");
-            });
+                alert("Wynik");
+            } else if (response.status === 205) {
+                alert("Tag jest pusty");
+            } else alert("Błąd");
+        });
         e.preventDefault();
     }
 
