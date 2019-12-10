@@ -28,12 +28,12 @@ def send_message(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        print(body)
+        print("bd ", body)
         try:
-            for x in search_users_data("#" + body["tag"]):
-                print(x)
-                print(body["selectedValue"].replace("{name}", str(x[2]))
-                      .replace("{username}", str(x[1])).replace("{city}", str(x[3])))
+            for user_id, user_data in search_users_data("#" + body['tag']).items():
+                print("User: ", user_id)
+                print("Text: " + body["selectedValue"].replace("{name}", str(user_data[0]))
+                      .replace("{username}", str(user_data[1])).replace("{city}", str(user_data[2])))
             return HttpResponse(status=200)
         except:
             HttpResponse(status=204)

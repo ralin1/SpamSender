@@ -13,6 +13,10 @@ var emptyArray = [
     {
         id: '',
         name: 'Dodaj nowy szablon'
+    },
+    {
+        id: '',
+        name: 'Dodaj nowy szablon'
     }
 ];
 
@@ -22,44 +26,21 @@ const url = 'http://127.0.0.1:8000/temp/';
 
 class CreateMessage extends Component {
     constructor(props) {
-        //load array from DATABASE
-        var ToBeReplacedWithDBDataREALLY = [
-            {
-                id: '1a',
-                name: '1b'
-            },
-            {
-                id: '2a',
-                name: '2b'
-            },
-            {
-                id: '3a',
-                name: '3b'
-            },
-        ];
-
-
         super(props);
 
         this.state = {
             name: "",
             text: ""
         };
-
-        arrayOfData = emptyArray.concat(ToBeReplacedWithDBDataREALLY)
-
-        this.handleChange = this.handleChange.bind(this);
-        this.saveButton = this.saveButton.bind(this);
-        this.deleteButton = this.deleteButton.bind(this);
-        this.handleLoad = this.handleLoad.bind(this);
+        arrayOfData = emptyArray;
     }
 
     componentDidMount() {
         window.addEventListener('load', this.handleLoad)
     }
 
-    handleLoad() {
-       fetch('http://127.0.0.1:8000/get_template/', {
+    handleLoad = () => {
+        fetch('http://127.0.0.1:8000/get_template/', {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify("Hello"),
@@ -68,20 +49,20 @@ class CreateMessage extends Component {
             }
         }).then(response => response.json())
             .then(function (json) {
-                console.log(json["name"], json["text"])
+                console.log(json["name"], json["text"]);
                 for (let i = 0; i < json["name"].length; i++) {
                     console.log(json["name"][i]);
                     console.log(json["text"][i]["text"]);
                     arrayOfData.push({id: json["text"][i]["text"], name: json["name"][i]})
                 }
             });
-    }
+    };
 
     componentWillUnmount() {
         window.removeEventListener('load', this.handleLoad)
     }
 
-    saveButton(e) {
+    saveButton = (e) => {
         fetch(url, {
             method: 'POST',
             mode: 'cors',
@@ -102,7 +83,7 @@ class CreateMessage extends Component {
         e.preventDefault();
     }
 
-    handleChange(e) {
+    handleChange = (e) => {
         let target = e.target;
         let value = target.type === 'checkbox' ? target.checked : target.value;
         let name = target.name;
@@ -112,7 +93,7 @@ class CreateMessage extends Component {
         });
     }
 
-    deleteButton(e) {
+    deleteButton = (e) => {
         fetch('http://127.0.0.1:8000/delete_template/', {
             method: 'POST',
             mode: 'cors',
@@ -133,7 +114,7 @@ class CreateMessage extends Component {
         e.preventDefault();
     }
 
-    handleSelectChange = (selectedValue, selectedId) => {
+    handleSelectChange = (selectedValue) => {
         if (selectedValue !== "") {
             this.setState({
                 text: selectedValue,
@@ -163,7 +144,7 @@ class CreateMessage extends Component {
             <div>
                 <p htmlFor="text" className="margin">Wybierz szablon:</p>
             </div>
-            <DynamicSelect arrayOfData={arrayOfData} onSelectChange={this.handleSelectChange}/>
+            <DynamicSelect name="aa" arrayOfData={arrayOfData} onSelectChange={this.handleSelectChange}/>
             <br/><br/>
             <p className="margin">Nazwa szablonu:</p>
             <div>
