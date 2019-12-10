@@ -8,7 +8,8 @@ class DynamicSelect extends Component {
     //On the change event for the select box pass the selected value back to the parent
     handleChange = (event) => {
         let selectedValue = event.target.value;
-        this.props.onSelectChange(selectedValue);
+        let selectedId = event.target.key;
+        this.props.onSelectChange(selectedValue, selectedId);
     }
 
     render() {

@@ -53,6 +53,7 @@ class MainScreen extends Component {
     render() {
         return <div id="wrapper" className="App">
             <div className="App__Aside_main">
+                {this.renderRedirect}
                 <nav className="no-space navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper"
                      role="navigation">
                     <ul className="nav sidebar-nav">
@@ -70,13 +71,7 @@ class MainScreen extends Component {
                         <li>
                             <NavLink to={"/main/FindContacts"}>Szukaj odbiorców</NavLink>
                         </li>
-                        {/*<li>*/}
-                        {/*    <NavLink to={"/main/GetMails"}>Odebrane</NavLink>*/}
-                        {/*</li>*/}
-                        {/*<li>*/}
-                        {/*    {this.renderRedirect()}*/}
-                        {/*    <NavLink to={"/main/HelpPage"}>Moze cos jeszcze???</NavLink>*/}
-                        {/*</li>*/}
+                        {this.renderRedirect()}
                         <li>
                             <a onClick={this.setRedirect}>Wyloguj</a>
                         </li>
