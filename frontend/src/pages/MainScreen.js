@@ -50,6 +50,8 @@ class MainScreen extends Component {
             return <Redirect to='/sign-in'/>
         }
     };
+
+
     render() {
         return <div id="wrapper" className="App">
             <div className="App__Aside_main">
@@ -63,13 +65,13 @@ class MainScreen extends Component {
                             </a>
                         </li>
                         <li>
-                            <NavLink to={"/main/ChooseMessage"}>Redaguj wiadomość</NavLink>
+                            <a href={"/main/ChooseMessage"}>Redaguj wiadomość</a>
                         </li>
                         <li>
-                            <NavLink to={"/main/CreateMessage"}>Zarządzaj szablonami</NavLink>
+                            <a href={"/main/CreateMessage"}>Zarządzaj szablonami</a>
                         </li>
                         <li>
-                            <NavLink to={"/main/FindContacts"}>Szukaj odbiorców</NavLink>
+                            <a href={"/main/FindContacts"}>Szukaj odbiorców</a>
                         </li>
                         {this.renderRedirect()}
                         <li>

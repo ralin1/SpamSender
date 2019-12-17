@@ -36,18 +36,23 @@ class FindContacts extends Component {
                 response.json().then(function (json) {
                     // console.log(response.status);
                     console.log(json["username"], json["screen_name"]);
-                    for (let i = 0; i < json["username"].length; i++) {
-                        console.log(json["username"][i]);
-                        console.log(json["screen_name"][i]);
-                    }
+                    // for (let i = 0; i < json["username"].length; i++) {
+                    //     console.log(json["username"][i]);
+                    //     console.log(json["screen_name"][i]);
+                    // }
                     a.setState({
                         current_state: json["username"].length + " osoby pisały na ten temat."
                     });
                 });
-                alert("Wynik");
             } else if (response.status === 205) {
-                alert("Tag jest pusty");
-            } else alert("Błąd");
+                a.setState({
+                    current_state: "Tag jest pusty"
+                });
+            } else {
+                a.setState({
+                    current_state: "Błąd!"
+                });
+            }
         });
         e.preventDefault();
     }

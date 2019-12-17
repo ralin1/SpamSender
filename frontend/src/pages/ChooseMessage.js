@@ -13,11 +13,7 @@ const url = 'http://127.0.0.1:8000/get_template/';
 var arrayOfData = [
     {
         id: '',
-        name: '1'
-    },
-    {
-        id: '',
-        name: '2'
+        name: '.'
     }
 ];
 class ChooseMessage extends Component {
@@ -63,33 +59,35 @@ class ChooseMessage extends Component {
     }
 
     onClick = (e) => {
-        fetch('http://127.0.0.1:8000/send_message/', {
-            method: 'POST',
-            mode: 'cors',
-            body: JSON.stringify(this.state),
-            headers: {
-                Accept: 'application/json'
-            }
-        })
-        // .then(response => response.json())
-        // // .then(json => arrayOfData.push({id: 'Tylko testuje mozliwosci listy', name: json[1]}));
-        // .then(function (json) {
-        //     console.log(json["name"], json["text"])
-        //     for (let i = 0; i < json["name"].length; i++) {
-        //         console.log(json["name"][i]);
-        //         console.log(json["text"][i]["text"]);
-        //         arrayOfData.push({id: json["text"][i]["text"], name: json["name"][i]})
-        //     }
-        // });
-            .then(function (response) {
-                console.log(response.status);
-                if (response.status === 200) {
-                    alert("Wynik");
-                } else if (response.status === 205) {
-                    alert("Tag jest pusty");
-                } else alert("Błąd");
-            });
-        e.preventDefault();
+        if (this.state.selectedValue !== "") {
+            fetch('http://127.0.0.1:8000/send_message/', {
+                method: 'POST',
+                mode: 'cors',
+                body: JSON.stringify(this.state),
+                headers: {
+                    Accept: 'application/json'
+                }
+            })
+            // .then(response => response.json())
+            // // .then(json => arrayOfData.push({id: 'Tylko testuje mozliwosci listy', name: json[1]}));
+            // .then(function (json) {
+            //     console.log(json["name"], json["text"])
+            //     for (let i = 0; i < json["name"].length; i++) {
+            //         console.log(json["name"][i]);
+            //         console.log(json["text"][i]["text"]);
+            //         arrayOfData.push({id: json["text"][i]["text"], name: json["name"][i]})
+            //     }
+            // });
+                .then(function (response) {
+                    console.log(response.status);
+                    if (response.status === 200) {
+                        alert("Wynik");
+                    } else if (response.status === 205) {
+                        alert("Tag jest pusty");
+                    } else alert("Błąd");
+                });
+            e.preventDefault();
+        } else alert("Wpisz tag i wybierz szablon z listy")
     }
 
     handleChange = (e) => {
@@ -100,13 +98,13 @@ class ChooseMessage extends Component {
         this.setState({
             [name]: value
         });
-    }
+    };
 
     handleSelectChange = (selectedValue) => {
         this.setState({
             selectedValue: selectedValue
         });
-    }
+    };
 
     render() {
         return (
@@ -119,14 +117,14 @@ class ChooseMessage extends Component {
                        onChange={this.handleChange}/>
             </div>
             <div>
-                <p className="margin" for="text">Wybierz szablon:</p>
+                <p className="margin">Wybierz szablon:</p>
             </div>
             <DynamicSelect arrayOfData={arrayOfData} onSelectChange={this.handleSelectChange}/> <br/><br/>
 
             {/*<div>*/}
             {/*    <textarea id="text" name="text">Text</textarea>*/}
             {/*</div>*/}
-            <button className="FormField__Button mr-20" for="text" onClickCapture={this.onClick}>Wyślij</button>
+            <button className="FormField__Button mr-20" onClickCapture={this.onClick}>Wyślij</button>
 
 
             <div className="margin">

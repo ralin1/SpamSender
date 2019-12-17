@@ -16,7 +16,7 @@ var emptyArray = [
     },
     {
         id: '',
-        name: 'Dodaj nowy szablon.'
+        name: 'Wczytaj szablony z bazy'
     }
 ];
 
@@ -142,7 +142,7 @@ class CreateMessage extends Component {
             <body className="text_form">
 
             <div>
-                <p htmlFor="text" className="margin">Wybierz szablon:</p>
+                <p className="margin">Wybierz szablon:</p>
             </div>
             <DynamicSelect name="aa" arrayOfData={arrayOfData} onSelectChange={this.handleSelectChange}/>
             <br/><br/>
