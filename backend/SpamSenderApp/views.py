@@ -117,10 +117,9 @@ def login(request):
         body = json.loads(body_unicode)
         email = body['email']
         password = body['password']
-        print(email)
-        print(password)
         try:
-            user = auth.sign_in_with_email_and_password(email, password)
+            # import pdb; pdb.set_trace()
+            auth.sign_in_with_email_and_password(email, password)
             print("Done")
             return HttpResponse(status=200)
         except:
@@ -146,9 +145,6 @@ def signup(request):
         email = body['email']
         password = body['password']
         repassword = body['repassword']
-        print(email)
-        print(password)
-        print(repassword)
         if password == repassword:
             try:
                 auth.create_user_with_email_and_password(email, password)
